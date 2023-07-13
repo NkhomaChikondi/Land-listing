@@ -11,6 +11,7 @@ namespace Land_listing
         {
             InitializeComponent();
             Routing.RegisterRoute(nameof(SignUpView), typeof(SignUpView));
+            Routing.RegisterRoute(nameof(AdministratorDashboardView), typeof(AdministratorDashboardView));
            // Routing.RegisterRoute(nameof(SignInuser), typeof(SignInuser));
         }
 

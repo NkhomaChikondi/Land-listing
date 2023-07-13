@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ViewModel="clr-namespace:Land_listing.ViewModels.User"
+             xmlns:helpers="clr-namespace:Land_listing.Resources"
+             x:Class="Land_listing.Views.UserView.AdministratorDashboardView"
+             Title="Dashboard">
+    
+    <ContentPage.BindingContext>
+        <ViewModel:AddUserViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <OnPlatform x:Key="MaterialFontFamily" x:TypeArguments="x:String">
+                <On Platform="Android" Value="materialdesignicons-webfont.ttf#Material Design Icons"/>
+            </OnPlatform>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Label HorizontalOptions="EndAndExpand" Margin="0,7,12,0" FontSize="18" FontAttributes="Bold" TextColor="#1b4965" >
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Hello "/>
+                            <Span x:Name="hello" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Grid/>
+                <Grid Grid.Row="1" Grid.RowSpan="8" Margin="2,0,2,0">
+                    
+                        <StackLayout>
+                            <CarouselView x:Name="carousel" Margin="2" IsBounceEnabled="True"  IndicatorView="indicatorView">
+                                <CarouselView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid HorizontalOptions="FillAndExpand">
+                                            <Image Source="{Binding image}" Aspect="AspectFill"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </CarouselView.ItemTemplate>
+                            </CarouselView>
+                            <IndicatorView   x:Name="indicatorView" 
+                             IndicatorColor="Gray"
+                             SelectedIndicatorColor="DarkGray"
+                             IndicatorSize="10"
+                             VerticalOptions="Center">
+                            </IndicatorView>
+                        </StackLayout>                 
+                </Grid>
+                <Grid Grid.Row="9" Margin="5,2" HorizontalOptions="CenterAndExpand">
+                    <Label Text="Admin Panel " FontSize="18" FontAttributes="Bold" TextColor="#1b4965"/>
+                </Grid>
+                <Grid Margin="15,5" Grid.Row="10" Grid.RowSpan="3">
+                    <StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Frame>
+                                <StackLayout>
+                                    <Image Source="{FontImage FontFamily={StaticResource MaterialFontFamily},
+                                                 Glyph={x:Static helpers:IconFont.AccountOutline},Size=25,Color=#4d908e}"/>
+                                    <Label Text="20" FontSize="17" FontAttributes="Bold" HorizontalOptions="CenterAndExpand"/>
+                                    <Label Text="All users"/>
+                                </StackLayout>
+                            </Frame>
+                            <Frame>
+                                <StackLayout>
+                                    <Image Source="{FontImage FontFamily={StaticResource MaterialFontFamily},
+                                                 Glyph={x:Static helpers:IconFont.BlockHelper},Size=25,Color=#4d908e}"/>
+                                    <Label Text="20" HorizontalOptions="CenterAndExpand" FontSize="17" FontAttributes="Bold"/>
+                                    <Label Text="Blocked users"/>
+                                </StackLayout>
+                            </Frame>
+                            <Frame>
+                                <StackLayout>
+                                    
+                                    <Image Source="{FontImage FontFamily={StaticResource MaterialFontFamily},
+                                                 Glyph={x:Static helpers:IconFont.FrequentlyAskedQuestions},Size=25,Color=#4d908e}"/>
+                                    <Label Text="20" HorizontalOptions="CenterAndExpand" FontSize="17" FontAttributes="Bold"/>
+                                    <Label Text="User requests"/>
+                                </StackLayout>
+                            </Frame>
+
+                        </StackLayout>
+                        <StackLayout Margin="0,29" Orientation="Horizontal">
+                            <Frame>
+                                <StackLayout>
+                                    <Image Source="{FontImage FontFamily={StaticResource MaterialFontFamily},
+                                                 Glyph={x:Static helpers:IconFont.CropLandscape},Size=25,Color=#4d908e}"/>
+                                    <Label Text="20" HorizontalOptions="CenterAndExpand" FontSize="17" FontAttributes="Bold"/>
+                                    <Label Text="  All lands  "/>
+                                </StackLayout>
+                            </Frame>
+                            <Frame>
+                                <StackLayout>
+                                    <Image Source="{FontImage FontFamily={StaticResource MaterialFontFamily},
+                                                 Glyph={x:Static helpers:IconFont.PointOfSale},Size=25,Color=#4d908e}"/>
+                                    <Label Text="20" HorizontalOptions="CenterAndExpand" FontSize="17" FontAttributes="Bold"/>
+                                    <Label Text="  Land sold  "/>
+                                </StackLayout>
+                            </Frame>
+                            <Frame>
+                                <StackLayout>
+                                    <Image Source="{FontImage FontFamily={StaticResource MaterialFontFamily},
+                                                 Glyph={x:Static helpers:IconFont.CurrencyUsd},Size=25,Color=#4d908e}"/>
+                                    <Label Text="20" HorizontalOptions="CenterAndExpand" FontSize="17" FontAttributes="Bold"/>
+                                    <Label Text="Total earnings"/>
+                                </StackLayout>
+                            </Frame>
+
+                        </StackLayout>
+                    </StackLayout>
+                    
+                </Grid>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

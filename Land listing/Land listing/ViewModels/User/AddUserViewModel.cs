@@ -178,13 +178,19 @@ namespace Land_listing.ViewModels.User
                 // make sure both the username and password are not empty
 
                 // check if the username doesnt exist
-                var dbUsername = users.Where(t => t.Username == username).FirstOrDefault();
-                if (dbUsername != null)
+                var dbUser = users.Where(t => t.Username == username).FirstOrDefault();
+                if (dbUser != null)
                 {
-                    // get the password having the incoming password
-                    var  dbPassword = users.Where(t => t.Password == password).FirstOrDefault();
+                    //// get the password having the incoming password
+                    //var  dbPassword = users.Where(t => t.Password == password).FirstOrDefault();
                     // check if the password matches
-                    if (dbPassword != null)                    {
+                    if (dbUser.Password == password)       
+                    {
+                        if(dbUser.Usertype.Equals("Administrator"))
+                        {
+                            // go to this page                
+                            await Shell.Current.Navigation.PushAsync(new AdministratorDashboardView(dbUser));
+                        }
                         // get the username and then log in the user
                         await App.Current.MainPage.DisplayAlert("Alert", $"{username} you have succefully logged in ", "Ok");
                     }
@@ -198,7 +204,6 @@ namespace Land_listing.ViewModels.User
                 {
                     await App.Current.MainPage.DisplayAlert("Error", " username doesnt exist", "Ok");
                     return;
-
                 }                    
             }
             catch (Exception)

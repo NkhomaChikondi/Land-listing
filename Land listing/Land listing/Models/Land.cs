@@ -14,5 +14,6 @@ namespace Land_listing.Models
         public string Location { get; set; }
         public string PlotSize { get; set; }
         public double Price { get; set; }
+        public DateTime CreatedOn { get; set; }
     }
 }

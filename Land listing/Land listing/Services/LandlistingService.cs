@@ -37,14 +37,16 @@ namespace Land_listing.Services
             // create a new user
             var user = new User
             {
-                FirstName = item.FirstName,
-                lastName = item.lastName,
+                FullName = item.FullName,   
+                Username = item.Username,
                 Password = item.Password,
-                PhoneNumber = item.PhoneNumber,
-                UserName = item.UserName,
+                PhoneNumber = item.PhoneNumber,               
+                Usertype = item.Usertype,
+                CreatedOn = item.CreatedOn,
             };
             // insert the values into the database
             await db.InsertAsync(user);
+            await App.Current.MainPage.DisplayAlert("Alert", $" user {user.FullName} having a user type of {user.Usertype},has been created! ", "Ok");
             return await Task.FromResult(true);
 
         }      
@@ -55,7 +57,7 @@ namespace Land_listing.Services
             var userId = await db.Table<User>().Where(d => d.UserId == id).FirstOrDefaultAsync();
             return userId;
         }
-        public async Task<IEnumerable<User>> GetUserAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<User>> GetUsersAsync(bool forceRefresh = false)
         {
             await Init();
             // get all the users in the database
@@ -89,6 +91,7 @@ namespace Land_listing.Services
                 LandDescription = item.LandDescription,
                 Location = item.Location,
                 Price = item.Price,
+                CreatedOn = item.CreatedOn,
             };
             // add to the database
             await db.InsertAsync(land);

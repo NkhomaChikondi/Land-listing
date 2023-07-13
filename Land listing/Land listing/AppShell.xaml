@@ -2,6 +2,7 @@
 <Shell xmlns="http://xamarin.com/schemas/2014/forms" 
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"      
        Title="Land_listing"
+         xmlns:local="clr-namespace:Land_listing.Views.UserView"
        x:Class="Land_listing.AppShell">
 
     <!--
@@ -77,6 +78,10 @@
         FlyoutDisplayOptions="AsMultipleItems" will create a separate flyout item for each child element    
         https://docs.microsoft.com/dotnet/api/xamarin.forms.shellgroupitem.flyoutdisplayoptions?view=xamarin-forms
     -->
+    <FlyoutItem Title="Sign In" Icon="icon_about.png">
+        <ShellContent Route="SignInuser" ContentTemplate="{DataTemplate local:SignInuser}" />
+    </FlyoutItem>  
+
     <!--
          <FlyoutItem Title="About" Icon="icon_about.png">
             <ShellContent Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />

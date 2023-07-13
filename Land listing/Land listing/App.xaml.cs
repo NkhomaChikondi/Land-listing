@@ -10,8 +10,7 @@ namespace Land_listing
         {
             InitializeComponent();
 
-            //DependencyService.Register<MockDataStore>();
-            //MainPage = new AppShell();
+            MainPage = new AppShell();
         }
 
         protected override void OnStart()

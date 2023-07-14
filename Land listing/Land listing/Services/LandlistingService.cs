@@ -88,8 +88,7 @@ namespace Land_listing.Services
             var land = new Land
             {
                 LandName = item.LandName,
-                PlotSize = item.PlotSize,
-                LandDescription = item.LandDescription,
+                PlotSize = item.PlotSize,               
                 Location = item.Location,
                 Price = item.Price,
                 CreatedOn = item.CreatedOn,
@@ -105,7 +104,7 @@ namespace Land_listing.Services
             var landid = await db.Table<Land>().Where(d => d.LandId == id).FirstOrDefaultAsync();
             return landid;
         }
-        public async Task<IEnumerable<Land>> GetlandAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<Land>> GetlandsAsync(bool forceRefresh = false)
         {
             await Init();
             // get all the users in the database

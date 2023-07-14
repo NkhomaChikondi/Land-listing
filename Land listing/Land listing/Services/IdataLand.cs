@@ -11,6 +11,6 @@ namespace Land_listing.Services
         Task<bool> UpdatelandAsync(T item);
         Task<bool> DeletelandAsync(int id);
         Task<T> GetlandAsync(int id);
-        Task<IEnumerable<T>> GetlandAsync(bool forceRefresh = false);
+        Task<IEnumerable<T>> GetlandsAsync(bool forceRefresh = false);
     }
 }

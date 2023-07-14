@@ -91,8 +91,7 @@
                         <StackLayout Margin="0,29" Orientation="Horizontal">
                             <Frame>
                                 <StackLayout>
-                                    <Image Source="{FontImage FontFamily={StaticResource MaterialFontFamily},
-                                                 Glyph={x:Static helpers:IconFont.CropLandscape},Size=25,Color=#4d908e}"/>
+                                    <Image Source="{FontImage FontFamily={StaticResource MaterialFontFamily},Glyph={x:Static helpers:IconFont.CropLandscape},Size=25,Color=#4d908e}"/>
                                     <Label Text="20" HorizontalOptions="CenterAndExpand" FontSize="17" FontAttributes="Bold"/>
                                     <Label Text="  All lands  "/>
                                 </StackLayout>

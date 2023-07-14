@@ -124,6 +124,7 @@ namespace Land_listing.ViewModels.User
                         CreatedOn = DateTime.Now,
                         PhoneNumber = phonenumber,
                         Password = password,
+                        Blocked = false,
                         Usertype = Usertype,
                     };
 

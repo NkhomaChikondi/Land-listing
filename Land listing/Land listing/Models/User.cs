@@ -13,7 +13,8 @@ namespace Land_listing.Models
         public string Username { get; set; }  
         public string Password { get; set; }
         public string PhoneNumber { get; set; }
-        public string Usertype { get; set; }   
+        public string Usertype { get; set; }
+        public bool Blocked  { get; set; }
         public DateTime CreatedOn { get; set; }
 
 

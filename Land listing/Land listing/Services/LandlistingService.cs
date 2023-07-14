@@ -42,6 +42,7 @@ namespace Land_listing.Services
                 Password = item.Password,
                 PhoneNumber = item.PhoneNumber,               
                 Usertype = item.Usertype,
+                Blocked = item.Blocked,
                 CreatedOn = item.CreatedOn,
             };
             // insert the values into the database

@@ -62,6 +62,9 @@
                     <StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <Frame>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="GetUsers_Tapped"/>
+                                </Frame.GestureRecognizers>
                                 <StackLayout>
                                     <Image Source="{FontImage FontFamily={StaticResource MaterialFontFamily},
                                                  Glyph={x:Static helpers:IconFont.AccountOutline},Size=25,Color=#4d908e}"/>

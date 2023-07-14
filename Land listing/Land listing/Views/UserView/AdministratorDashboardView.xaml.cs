@@ -30,5 +30,11 @@ namespace Land_listing.Views.UserView
                 return true;
             }));
         }
+
+        private async void GetUsers_Tapped(object sender, EventArgs e)
+        {
+            // navigate to user page
+            await Shell.Current.Navigation.PushAsync(new userPage());
+        }
     }
 }

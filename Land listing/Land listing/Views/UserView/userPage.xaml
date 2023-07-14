@@ -1,12 +1,78 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Land_listing.Views.UserView.userPage">
+             xmlns:Viewmodel="clr-namespace:Land_listing.ViewModels.User"
+             xmlns:helpers="clr-namespace:Land_listing.Resources"
+             x:Class="Land_listing.Views.UserView.userPage"
+             Title="Land listing">
+    <ContentPage.BindingContext>
+        <Viewmodel:UserViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>       
+        <ResourceDictionary>
+            <OnPlatform x:Key="MaterialFontFamily" x:TypeArguments="x:String">
+                <On Platform="Android" Value="materialdesignicons-webfont.ttf#Material Design Icons"/>
+            </OnPlatform>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid VerticalOptions="FillAndExpand" BackgroundColor="#f8f9fa">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackLayout>
+                <StackLayout HorizontalOptions="CenterAndExpand">
+                    <Label Text="Users" Margin="80,0" TextColor="#495057" FontAttributes="Bold" FontSize="18"/>
+                    <Label Text="View and Manage User Accounts" TextColor="#495057" FontAttributes="Italic" FontSize="15.5"/>
+                </StackLayout>
+                <StackLayout HorizontalOptions="EndAndExpand" Margin="20,0">
+                    <ImageButton Source="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static helpers:IconFont.Sort},Size=26,Color=#495057}" Clicked="ImageButton_Clicked" BackgroundColor="Transparent" />
+                </StackLayout>
+                <StackLayout>
+                    <ListView ItemsSource="{Binding Users}"                     
+                       CachingStrategy="RecycleElement"
+                       HasUnevenRows="True" 
+                       Grid.ColumnSpan="4"
+                       RefreshCommand="{Binding refreshCommand}"
+                       RefreshControlColor="Red"
+                       SelectionMode="Single"
+                       SeparatorVisibility="Default"
+                       IsRefreshing="{Binding IsBusy,Mode=OneWay}">
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid ColumnSpacing="5" Padding="6" Margin="10,0" Grid.ColumnSpan="4" >                                        
+                                        <StackLayout >
+                                            <Frame CornerRadius="15" HorizontalOptions="FillAndExpand">
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label HorizontalOptions="StartAndExpand">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>                                                               
+                                                                <Span Text="{Binding FullName}" TextColor="#343a40" FontAttributes="Bold" FontSize="16"/>
+                                                                <Span Text="{x:Static x:Environment.NewLine}" />
+                                                                <Span Text="{Binding PhoneNumber}" FontSize="14"/>
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+                                                    </Label>
+                                                    <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand">
+                                                        <ImageButton Source="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static helpers:IconFont.AccountEditOutline},Size=26,Color=#495057}" Clicked="UpdateUser_Clicked" CommandParameter="{Binding .}" BackgroundColor="Transparent" />
+                                                        <ImageButton Source="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static helpers:IconFont.Delete},Size=26,Color=#495057}" Clicked="Deleteuser_Clicked" BackgroundColor="Transparent" CommandParameter="{Binding .}" />
+                                                        <ImageButton Source="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static helpers:IconFont.BlockHelper},Size=26,Color=#495057}" Clicked="BlockUser_Clicked" BackgroundColor="Transparent" CommandParameter="{Binding .}"/>
+                                                    </StackLayout>
+                                                </StackLayout>
+                                            </Frame>
+                                        </StackLayout>
+                                    </Grid>                                   
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </StackLayout>            
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

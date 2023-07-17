@@ -14,11 +14,13 @@ namespace Land_listing.ViewModels
         public IDataUser<Models.User> dataUser { get; set; }
         public IdataLand<Models.Land> dataLand { get; set; }
         public IdataUserland<User_Land> dataUserLand { get; set; }
+        public IToast Datatoast { get; }
         public BaseViewModel()
         {
             // exposing landlistingservice
             dataUser= DependencyService.Get<IDataUser<Models.User>>();
             dataLand = DependencyService.Get<IdataLand<Models.Land>>();
+            Datatoast = DependencyService.Get<IToast>();
             dataUserLand = DependencyService.Get<IdataUserland<User_Land>>();
         }
         bool isBusy;

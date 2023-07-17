@@ -35,9 +35,9 @@ namespace Land_listing.ViewModels.Land
             await Shell.Current.Navigation.PushAsync(new AddlandPage());
         }
 
-        private Task deleteUser()
+        private async Task deleteUser()
         {
-            throw new NotImplementedException();
+            
         }
 
         private Task updateUser(int arg)

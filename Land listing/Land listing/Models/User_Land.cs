@@ -13,5 +13,6 @@ namespace Land_listing.Models
         [Indexed]
         public int UserId { get; set; }
         public int landId { get; set; }
+        public bool Requested { get; set; }                 
     }
 }

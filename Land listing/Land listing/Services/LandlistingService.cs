@@ -164,7 +164,7 @@ namespace Land_listing.Services
             return userlandid;
         }
 
-        public async Task<IEnumerable<User_Land>> GetUserlandAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<User_Land>> GetUserlandsAsync(bool forceRefresh = false)
         {
             await Init();
             // get all the users in the database

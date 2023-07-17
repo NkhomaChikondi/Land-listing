@@ -16,11 +16,13 @@ namespace Land_listing.Views.LandView
     public partial class ClientLandPage : ContentPage
     {
         public IToast Datatoast { get; }
+        Models.User GetUser;
         public ClientLandPage(User user)
         {
             InitializeComponent();
             BindingContext = new LandViewModel();
             Datatoast= DependencyService.Get<IToast>();
+            GetUser = user;
         }
         protected async override void OnAppearing()
         {
@@ -28,23 +30,26 @@ namespace Land_listing.Views.LandView
 
             if (BindingContext is LandViewModel viewModel)
             {
+                 viewModel.userId = GetUser.UserId;
                 await viewModel.refreshCommand.ExecuteAsync();
             }
         }
         private async void userRequest_Clicked(object sender, EventArgs e)
         {
             var result = await App.Current.MainPage.DisplayAlert("Alert", "Do you want to send a viewing request for this land?", "Yes", "No");
-            if(result)
+            if (result)
             {
-                Datatoast.toast("Your Land viewwing request has been sent");
-                return;
+                ImageButton button = (ImageButton)sender;
+                var land = (Land)button.CommandParameter;
+                if (BindingContext is LandViewModel viewModel)
+                {
+                    await viewModel.processLandViewingCommand.ExecuteAsync(land);
+                    Datatoast.toast("Your Land viewwing request has been sent");
+                    return;
+                }
             }
-            ImageButton button = (ImageButton)sender;
-            var land = (Land)button.CommandParameter;
-
-        }
-
-      
+            else
+                return;
+        }      
     }
-
 }

@@ -1,4 +1,5 @@
 ﻿using Land_listing.Models;
+using Land_listing.Views.LandView;
 using Land_listing.Views.UserView;
 using MvvmHelpers;
 using MvvmHelpers.Commands;
@@ -191,6 +192,11 @@ namespace Land_listing.ViewModels.User
                         {
                             // go to this page                
                             await Shell.Current.Navigation.PushAsync(new AdministratorDashboardView(dbUser));
+                        }
+                        else if(dbUser.Usertype.Equals("Client"))
+                        {
+                            // go to this page                
+                            await Shell.Current.Navigation.PushAsync(new ClientLandPage(dbUser));
                         }
                         // get the username and then log in the user
                         await App.Current.MainPage.DisplayAlert("Alert", $"{username} you have succefully logged in ", "Ok");

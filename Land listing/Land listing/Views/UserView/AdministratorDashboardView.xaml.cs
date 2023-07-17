@@ -1,4 +1,5 @@
 ﻿using Land_listing.Models;
+using Land_listing.Views.LandView;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace Land_listing.Views.UserView
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AdministratorDashboardView : ContentPage
     {
+        private User getUser;
         public AdministratorDashboardView( User user)
         {
             InitializeComponent();
@@ -29,12 +31,24 @@ namespace Land_listing.Views.UserView
                 carousel.Position = (carousel.Position + 1) % images.Count();
                 return true;
             }));
+            getUser = user;
         }
 
         private async void GetUsers_Tapped(object sender, EventArgs e)
         {
             // navigate to user page
             await Shell.Current.Navigation.PushAsync(new userPage());
+        }
+        private async void Getlands_Tapped(object sender, EventArgs e)
+        {
+            // navigate to land page
+            await Shell.Current.Navigation.PushAsync(new Lands(getUser));
+        }
+
+        private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+            // navigate to land page
+            //await Shell.Current.Navigation.PushAsync(new Lands());
         }
     }
 }

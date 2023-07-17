@@ -25,6 +25,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+            
             <Grid Grid.Row="0">
                 <Label HorizontalOptions="EndAndExpand" Margin="0,7,12,0" FontSize="18" FontAttributes="Bold" TextColor="#1b4965" >
                     <Label.FormattedText>
@@ -58,7 +59,8 @@
                 <Grid Grid.Row="9" Margin="5,2" HorizontalOptions="CenterAndExpand">
                     <Label Text="Admin Panel " FontSize="18" FontAttributes="Bold" TextColor="#1b4965"/>
                 </Grid>
-                <Grid Margin="15,5" Grid.Row="10" Grid.RowSpan="3">
+                <Grid Margin="15,5" Grid.Row="10" Grid.RowSpan="8">
+                   
                     <StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <Frame>
@@ -93,6 +95,9 @@
                         </StackLayout>
                         <StackLayout Margin="0,29" Orientation="Horizontal">
                             <Frame>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="Getlands_Tapped"/>
+                                </Frame.GestureRecognizers>
                                 <StackLayout>
                                     <Image Source="{FontImage FontFamily={StaticResource MaterialFontFamily},Glyph={x:Static helpers:IconFont.CropLandscape},Size=25,Color=#4d908e}"/>
                                     <Label Text="20" HorizontalOptions="CenterAndExpand" FontSize="17" FontAttributes="Bold"/>
@@ -100,6 +105,9 @@
                                 </StackLayout>
                             </Frame>
                             <Frame>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                                </Frame.GestureRecognizers>
                                 <StackLayout>
                                     <Image Source="{FontImage FontFamily={StaticResource MaterialFontFamily},
                                                  Glyph={x:Static helpers:IconFont.PointOfSale},Size=25,Color=#4d908e}"/>

@@ -1,9 +1,13 @@
-﻿using MvvmHelpers.Commands;
+﻿using Land_listing.Models;
+using Land_listing.Views.LandView;
+using Land_listing.Views.UserView;
+using MvvmHelpers.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace Land_listing.ViewModels.Land
 {
@@ -80,6 +84,8 @@ namespace Land_listing.ViewModels.Land
 
                 // add the new object to the database
                 await dataLand.AddlandAsync(newLand);
+                // navigate to lands page
+                await Shell.Current.Navigation.PushAsync(new Lands());
             }
             catch (Exception)
             {
@@ -88,6 +94,7 @@ namespace Land_listing.ViewModels.Land
             }
             finally
             {
+                IsBusy = false;
 
             }
         }

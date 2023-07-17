@@ -80,7 +80,10 @@
     -->
     <FlyoutItem Title="Sign In" Icon="icon_about.png">
         <ShellContent Route="SignInuser" ContentTemplate="{DataTemplate local:SignInuser}" />
-    </FlyoutItem>  
+    </FlyoutItem>
+    <FlyoutItem Title="Sign In" Icon="icon_about.png">
+        <ShellContent Route="SignInuser" ContentTemplate="{DataTemplate local:SignInuser}" />
+    </FlyoutItem>
 
     <!--
          <FlyoutItem Title="About" Icon="icon_about.png">

@@ -132,8 +132,8 @@ namespace Land_listing.Services
             // create a new user land
             var userland = new User_Land
             {
-                landId = item.Id,
-                UserId = item.Id,   
+                landId = item.landId,
+                UserId = item.UserId,   
             };
             // add to the database
             await db.InsertAsync(userland);

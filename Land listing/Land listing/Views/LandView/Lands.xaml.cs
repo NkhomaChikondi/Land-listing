@@ -1,6 +1,7 @@
 ﻿using Land_listing.Models;
 using Land_listing.ViewModels.Land;
 using Land_listing.ViewModels.User;
+using Land_listing.Views.UserView;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +39,22 @@ namespace Land_listing.Views.LandView
             {
                 await viewModel.refreshCommand.ExecuteAsync();
             }            
+        }
+
+        private void Delete_Clicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private async void UserRequest_Clicked(object sender, EventArgs e)
+        {
+            // navigate to this page
+            await Shell.Current.Navigation.PushAsync(new UserlandView());
+        }
+
+        private void sendMoney_Clicked(object sender, EventArgs e)
+        {
+
         }
     }
 }

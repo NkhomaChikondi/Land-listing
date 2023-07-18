@@ -44,8 +44,7 @@ namespace Land_listing.Views.LandView
                 if (BindingContext is LandViewModel viewModel)
                 {
                     await viewModel.processLandViewingCommand.ExecuteAsync(land);
-                    Datatoast.toast("Your Land viewwing request has been sent");
-                    return;
+                   
                 }
             }
             else

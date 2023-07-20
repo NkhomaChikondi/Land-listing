@@ -11,7 +11,7 @@ using Xamarin.Forms;
 [assembly: Dependency(typeof(LandlistingService))]
 namespace Land_listing.Services
 {
-    public class LandlistingService:IDataUser<User>,IdataLand<Land>,IdataUserland<User_Land>
+    public class LandlistingService:IDataUser<User>,IdataLand<Land>,IdataUserland<User_Land>, INotification<Notification>
     {
         static SQLiteAsyncConnection db;
         // database connection class
@@ -27,13 +27,12 @@ namespace Land_listing.Services
             await db.CreateTableAsync<User>();
             await db.CreateTableAsync<User_Land>();
             await db.CreateTableAsync<Land>();
-
+            await db.CreateTableAsync<Notification>();
         }       
 
         public async Task<bool> AddUserAsync(User item)
         {
             await Init();
-
             // create a new user
             var user = new User
             {
@@ -47,9 +46,7 @@ namespace Land_listing.Services
             };
             // insert the values into the database
             await db.InsertAsync(user);
-            await App.Current.MainPage.DisplayAlert("Alert", $" user {user.FullName} having a user type of {user.Usertype},has been created! ", "Ok");
             return await Task.FromResult(true);
-
         }      
         public async Task<User> GetUserAsync(int id)
         {
@@ -171,6 +168,54 @@ namespace Land_listing.Services
             var allUserlands = await db.Table<User_Land>().ToListAsync();
             return allUserlands;
         }
+
+        public async Task<bool> AddNotificationAsync(Notification item)
+        {
+            await Init();
+            // create a new user
+            var notification = new Notification
+            {
+                Title = item.Title,
+                Message = item.Message,
+                Created = item.Created,
+                userId = item.userId
+            };
+            // insert the values into the databases
+            await db.InsertAsync(notification);
+            return await Task.FromResult(true);
+        }
+
+        public async Task<bool> UpdateNotificationAsync(Notification item)
+        {
+            // modifying notification item in the database
+            await Init();
+            var updateNotification = await db.UpdateAsync(item);
+            return await Task.FromResult(true);
+        }
+
+        public async Task<bool> DeleteNotificationAsync(int id)
+        {
+            await Init();
+            // Remove the selected userland item from the database
+            var deleteNotification = await db.DeleteAsync<Notification>(id);
+            return await Task.FromResult(true);
+        }
+        public async Task<Notification> GetNotificationAsync(int id)
+        {
+            await Init();
+            // get the selected item 
+            var notification = await db.Table<Notification>().Where(d => d.Id == id).FirstOrDefaultAsync();
+            return notification;
+        }
+
+        public async Task<IEnumerable<Notification>> GetNotificationsAsync(bool forceRefresh = false)
+        {
+            await Init();
+            // get all the users in the database
+            var Allnotifications = await db.Table<Notification>().ToListAsync();
+            return Allnotifications;
+        }
     }
-    
 }
+    
+

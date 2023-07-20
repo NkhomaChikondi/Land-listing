@@ -14,6 +14,7 @@ namespace Land_listing.ViewModels
         public IDataUser<Models.User> dataUser { get; set; }
         public IdataLand<Models.Land> dataLand { get; set; }
         public IdataUserland<User_Land> dataUserLand { get; set; }
+        public INotification<Notification> dataNotification { get; set; }
         public IToast Datatoast { get; }
         public BaseViewModel()
         {
@@ -22,6 +23,7 @@ namespace Land_listing.ViewModels
             dataLand = DependencyService.Get<IdataLand<Models.Land>>();
             Datatoast = DependencyService.Get<IToast>();
             dataUserLand = DependencyService.Get<IdataUserland<User_Land>>();
+            dataNotification = DependencyService.Get<INotification<Notification>>();
         }
         bool isBusy;
         string Title;

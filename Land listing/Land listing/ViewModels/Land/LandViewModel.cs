@@ -16,7 +16,11 @@ namespace Land_listing.ViewModels.Land
     public class LandViewModel: BaseViewModel
     {
         public int userId { get; set; }
-        List<userlanddata> userlanddatas ;
+        List<userlanddata> userlanddatas = new List<userlanddata>(); 
+        public int landId;
+        private string landName;
+
+        public string LandName { get => landName; set => landName = value; }
         //commands
         public AsyncCommand deleteLandCommand { get; set; }
         public AsyncCommand addlandCommand { get; set; }
@@ -27,16 +31,20 @@ namespace Land_listing.ViewModels.Land
         //collections
         public ObservableRangeCollection<Models.Land> Lands { get; }
         public ObservableRangeCollection<userlanddata> User_Land { get; }
+        public ObservableRangeCollection<Notification> notifications { get; }
+       
+
         public LandViewModel()
         {
             deleteLandCommand = new AsyncCommand(deleteUser);
             UpdateLandCommand = new AsyncCommand<int>(updateUser);
             addlandCommand = new AsyncCommand(addland);
             refreshCommand = new AsyncCommand(Refresh);
-            LoadUserLandDataCommand = new AsyncCommand(LoadUserLandData);
+            LoadUserLandDataCommand = new AsyncCommand (LoadUserLandData);
             processLandViewingCommand = new AsyncCommand<Models.Land>(processLandViewing);
             Lands = new ObservableRangeCollection<Models.Land>();
             User_Land = new ObservableRangeCollection<userlanddata>();
+            notifications = new ObservableRangeCollection<Notification>();
         }
 
         private async Task processLandViewing(Models.Land land)
@@ -98,61 +106,92 @@ namespace Land_listing.ViewModels.Land
             // set "isBusy" to true
             IsBusy = false;
         }
-        
+        public async Task AddNotification(string landname, int userId)
+        {
+            try
+            {
+                if (IsBusy)
+                    return;
+                else
+                {
+                    // create a new notification
+                    var newNotification = new Notification
+                    {
+                        Title = "Site viewing approval",
+                        Message = $"Your site {landname} viewing request, has been approved!",
+                        userId = userId,
+                        Created = DateTime.Now
+                    };
+                    // add to the database
+                    await dataNotification.AddNotificationAsync(newNotification);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
         private async Task LoadUserLandData()
         {
             IsBusy = true;
             // clear users on the page
-            User_Land.Clear();
-            // get all lands
-            var lands = await dataLand.GetlandsAsync();
-            // get all users
-            var users = await dataUser.GetUsersAsync();
+            User_Land.Clear();        
             // get all userland
             var user_lands = await dataUserLand.GetUserlandsAsync ();
-           
-            foreach ( var user in users )
+            // get only records having the land Id
+            var landrecords = user_lands.Where(l => l.landId == landId).ToList();           
+            // loop throughthe landrecords
+            foreach (var land in landrecords)
             {
-              // check if the user has requested land viewing
-              // get all user_ lands having the user id
-              var alluserLands = user_lands.Where(ul => ul.UserId == user.UserId).ToList();
+                // check if the user has requested land viewing
+                // get all user_lands having the user id
+                var alluserLands = user_lands.Where(ul => ul.UserId == land.UserId && ul.landId == landId).ToList();
                 if (alluserLands.Count() > 0)
                 {
-                    // loop through the userlands and create new object
+                    // loop through the userlands and create new objects
                     foreach (var item in alluserLands)
                     {
                         // get the land having the item.landId
-                        var itemLand = await dataLand.GetlandAsync(item.landId);
-                        if (itemLand != null)
+                        var user = await dataUser.GetUserAsync(item.UserId);
+                        if (user != null)
                         {
-                            // create a new list object
-                            var newuserlanddatas = new userlanddata
+                            // create a new userlanddata object
+                            var newuserlanddata = new userlanddata
                             {
                                 Id = item.UserId,
-                                FullName = user.Username,
-                                LandName = itemLand.LandName
+                                FullName = user.FullName,  
+                                UserName = user.Username
                             };
-                            userlanddatas.Add(newuserlanddatas);
-                        }                      
+                            userlanddatas.Add(newuserlanddata);
+                        }
                     }
-                }               
+                }
             }
-            if(userlanddatas.Count() == 0)
+            // Check if userlanddatas contains any data before adding it to User_Land
+            if (userlanddatas.Count() > 0)
             {
-                return;
+                User_Land.AddRange(userlanddatas);
             }
-            else
-            User_Land.AddRange(userlanddatas);
             // retrieve the users back
             //User_Land.AddRange(UserLands);
             // set "isBusy" to true
             IsBusy = false;
         }
-        public class userlanddata
+        public async Task LoadNotifications(Models.User user)
         {
-            public int Id { get; set; }
-            public string FullName { get; set; }
-            public string LandName { get; set; }
+            IsBusy = true;
+            // clear users on the page
+            notifications.Clear();
+            // get all users
+            var dbnotifications = await dataNotification.GetNotificationsAsync();
+            // take only notifications that has the user id
+            var userNotifications = dbnotifications.Where( n => n.userId == user.UserId ).ToList(); 
+            // retrieve the users back
+            notifications.AddRange(userNotifications);
+            // set "isBusy" to true
+            IsBusy = false;
         }
     }
     

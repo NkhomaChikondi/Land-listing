@@ -15,6 +15,7 @@
             </OnPlatform>
         </ResourceDictionary>
     </ContentPage.Resources>
+   
     <ContentPage.Content>
         <Grid VerticalOptions="FillAndExpand" BackgroundColor="#f8f9fa">
             <Grid.RowDefinitions>
@@ -24,6 +25,10 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <StackLayout>
+                <StackLayout x:Name="bellAlert" HorizontalOptions="EndAndExpand" Margin="0,5,20,0">                    
+                    <ImageButton BackgroundColor="Transparent" Source="{FontImage FontFamily={StaticResource MaterialFontFamily},
+                                   Glyph={x:Static helpers:IconFont.BellAlert},Size=26,Color=Maroon}" Clicked="NotificationAlert_Clicked"/>
+                </StackLayout>
                 <StackLayout HorizontalOptions="CenterAndExpand">
                     <Label Text="Land" Margin="80,0" TextColor="#495057" FontAttributes="Bold" FontSize="18"/>
                     <Label Text="Land Available For Viewing and Buying" TextColor="#495057" FontAttributes="Italic" FontSize="15.5"/>
@@ -80,9 +85,7 @@
                         </ListView.ItemTemplate>
                     </ListView>
                 </StackLayout>
-                <StackLayout Margin="70,0,70,0" >
-                    <Button CornerRadius="20" Command="{Binding addlandCommand}" Text=" Sign Up"/>
-                </StackLayout>
+                
             </StackLayout>
         </Grid>
     </ContentPage.Content>

@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"              
+             xmlns:Viewmodel="clr-namespace:Land_listing.ViewModels.Land"
+             x:Class="Land_listing.Views.UserView.Notifications"
+             Title="Land Listing">
+    <ContentPage.BindingContext>
+        <Viewmodel:LandViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <OnPlatform x:Key="MaterialFontFamily" x:TypeArguments="x:String">
+                <On Platform="Android" Value="materialdesignicons-webfont.ttf#Material Design Icons"/>
+            </OnPlatform>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid VerticalOptions="FillAndExpand" BackgroundColor="#f8f9fa">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackLayout>
+                <StackLayout HorizontalOptions="CenterAndExpand">
+                    <Label Text="Notifications"  TextColor="#495057" FontAttributes="Bold" FontSize="18"/>
+                </StackLayout>
+                <StackLayout>
+                    <StackLayout>
+                        <ListView ItemsSource="{Binding notifications}"                     
+                       CachingStrategy="RecycleElement"
+                       HasUnevenRows="True" 
+                       Grid.ColumnSpan="4"
+                       RefreshCommand="{Binding refreshCommand}"
+                       RefreshControlColor="Red"
+                       SelectionMode="Single"
+                       SeparatorVisibility="Default"
+                       IsRefreshing="{Binding IsBusy,Mode=OneWay}">
+
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <Grid ColumnSpacing="5" Padding="6" Margin="10,0" Grid.ColumnSpan="4" >
+                                            <StackLayout >
+                                                <Frame CornerRadius="15" HorizontalOptions="FillAndExpand" Padding="5">
+                                                    <StackLayout Orientation="Vertical">                                                       
+                                                        <StackLayout Orientation="Horizontal" x:Name="deleteLand">
+                                                            <Label HorizontalOptions="StartAndExpand">
+                                                                <Label.FormattedText>
+                                                                    <FormattedString>
+                                                                        <Span Text="{Binding Created}" FontSize="15"/>
+                                                                        <Span Text="{x:Static x:Environment.NewLine}" />
+                                                                        <Span Text="{Binding Title}" TextColor="#343a40" FontAttributes="Bold" FontSize="17"/>
+                                                                        <Span Text="{x:Static x:Environment.NewLine}" />
+                                                                        <Span Text="{Binding Message}" FontSize="16"/>
+                                                                    </FormattedString>
+                                                                </Label.FormattedText>
+                                                            </Label>                                                            
+                                                        </StackLayout>
+                                                    </StackLayout>
+                                                </Frame>
+                                            </StackLayout>
+                                        </Grid>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

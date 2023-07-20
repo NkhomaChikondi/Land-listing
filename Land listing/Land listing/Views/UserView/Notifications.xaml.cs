@@ -1,4 +1,5 @@
-﻿using Land_listing.ViewModels.User;
+﻿using Land_listing.Models;
+using Land_listing.ViewModels.Land;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,25 +12,23 @@ using Xamarin.Forms.Xaml;
 namespace Land_listing.Views.UserView
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SignInuser : ContentPage
+    public partial class Notifications : ContentPage
     {
-        public SignInuser()
+        User GetUser;
+        public Notifications(User user)
         {
             InitializeComponent();
-            BindingContext = new AddUserViewModel();
+            BindingContext = new LandViewModel();
+            GetUser = user;
         }
         protected async override void OnAppearing()
         {
             base.OnAppearing();
-            if(BindingContext is AddUserViewModel viewModel)
+            if(BindingContext is LandViewModel viewModel)
             {
+                await viewModel.LoadNotifications(GetUser);
             
             }
-        }
-
-        private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
-        {
-            await Shell.Current.Navigation.PushAsync(new SignUpView());
         }
     }
 }

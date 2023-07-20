@@ -26,7 +26,7 @@
             <StackLayout>
                 <StackLayout HorizontalOptions="CenterAndExpand">
                     <Label Text="Land" Margin="80,0" TextColor="#495057" FontAttributes="Bold" FontSize="18"/>
-                    <Label Text="Land Available For Viewing and Buying" TextColor="#495057" FontAttributes="Italic" FontSize="15.5"/>
+                    <Label Text="Land sites Available For Viewing and Buying" TextColor="#495057" FontAttributes="Italic" FontSize="15.5"/>
                 </StackLayout>
                 <StackLayout HorizontalOptions="EndAndExpand" Margin="20,0">
                     <ImageButton Source="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static helpers:IconFont.Sort},Size=26,Color=#495057}" BackgroundColor="Transparent" />
@@ -88,7 +88,7 @@
                     </ListView>
                 </StackLayout>
                 <StackLayout Margin="70,0,70,0" >
-                    <Button CornerRadius="20" Command="{Binding addlandCommand}" Text=" Sign Up"/>
+                    <Button CornerRadius="20" Command="{Binding addlandCommand}" Text=" Add Site"/>
                 </StackLayout>
             </StackLayout>
         </Grid>

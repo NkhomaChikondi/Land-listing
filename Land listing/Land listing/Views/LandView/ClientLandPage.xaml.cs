@@ -1,6 +1,7 @@
 ﻿using Land_listing.Models;
 using Land_listing.Services;
 using Land_listing.ViewModels.Land;
+using Land_listing.Views.UserView;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,6 +50,12 @@ namespace Land_listing.Views.LandView
             }
             else
                 return;
-        }      
+        }
+
+        private async void NotificationAlert_Clicked(object sender, EventArgs e)
+        {
+            // go to notification page
+            await Shell.Current.Navigation.PushAsync(new Notifications(GetUser));
+        }
     }
 }

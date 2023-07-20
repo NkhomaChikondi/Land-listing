@@ -50,7 +50,29 @@ namespace Land_listing.ViewModels.User
             LoginUserCommand = new AsyncCommand(LoginUser);
             Users = new ObservableRangeCollection<Models.User>();
         }
-
+        public async Task createUser()
+        {
+            // get all user in the database
+            var allUsers = await dataUser.GetUsersAsync();
+            // check if there is anyone with a username of admninstrator
+            var administrator = allUsers.Where(U => U.Usertype == "Administrator").FirstOrDefault();
+            if (administrator == null)
+            {
+                //create a new user having that name
+                var newUser = new Models.User
+                {
+                    FullName = "Administrator",
+                    Username = "Admin123",
+                    PhoneNumber = "0998887776",
+                    Password = "@Admin123",
+                    Usertype = "Administrator",
+                    Blocked = false, 
+                    CreatedOn = DateTime.Now,
+                };
+                // save to the database
+                await dataUser.AddUserAsync(newUser);
+            }
+        }
         private async Task AddUser()
         {
             // check if the app is busy
@@ -112,11 +134,8 @@ namespace Land_listing.ViewModels.User
                 {
                     // change firstname and last name to uppercase if they are not
                     // change the first letter of the Task name to upercase
-                    var UppercasedfirstName = char.ToUpper(fullname[0]) + fullname.Substring(1);
-                    if (client)
-                        usertype = "Client";
-                    else if (administrator)
-                        usertype = "Administrator";
+                    var UppercasedfirstName = char.ToUpper(fullname[0]) + fullname.Substring(1);                   
+                       
                     // create a new user
                     var newUser = new Models.User
                     {
@@ -126,7 +145,7 @@ namespace Land_listing.ViewModels.User
                         PhoneNumber = phonenumber,
                         Password = password,
                         Blocked = false,
-                        Usertype = Usertype,
+                        Usertype = "Client",
                     };
 
                     // add to the database

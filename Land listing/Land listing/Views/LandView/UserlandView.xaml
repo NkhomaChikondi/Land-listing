@@ -25,12 +25,18 @@
             </Grid.RowDefinitions>
             <StackLayout>
                 <StackLayout HorizontalOptions="CenterAndExpand">
-                    <Label Text="Land" Margin="80,0" TextColor="#495057" FontAttributes="Bold" FontSize="18"/>
-                    <Label Text="Land Available For Viewing and Buying" TextColor="#495057" FontAttributes="Italic" FontSize="15.5"/>
+                    <Label  Text="Land Viewing Requests" Margin="70,0" TextColor="#495057" FontAttributes="Bold" FontSize="18"/>
+                    <Label Margin="58,0" Text="Approve user viewing requests" TextColor="#495057" FontAttributes="Italic" FontSize="15.5"/>
                 </StackLayout>
                 <StackLayout HorizontalOptions="EndAndExpand" Margin="20,0">
                     <ImageButton Source="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static helpers:IconFont.Sort},Size=26,Color=#495057}" BackgroundColor="Transparent" />
                 </StackLayout>
+                
+                <StackLayout Orientation="Horizontal" Margin="15,0">
+                    <Label x:Name="landname" Text=""  TextColor="#343a40" FontAttributes="Bold" FontSize="19"/>
+                    <Label  Text="site"  TextColor="#343a40" FontAttributes="Bold" FontSize="19"/>
+                </StackLayout>
+                
                 <StackLayout>
                     <ListView ItemsSource="{Binding User_Land}"                     
                        CachingStrategy="RecycleElement"
@@ -47,24 +53,23 @@
                                 <ViewCell>
                                     <Grid ColumnSpacing="5" Padding="6" Margin="10,0" Grid.ColumnSpan="4" >
                                         <StackLayout >
-                                            <Frame CornerRadius="15" HorizontalOptions="FillAndExpand" Padding="5">
-                                                <StackLayout Orientation="Vertical">
+                                            <Frame CornerRadius="15" HorizontalOptions="FillAndExpand" Padding="10,10,5,15">
+                                                <StackLayout Orientation="Horizontal">
                                                     
                                                     <StackLayout Orientation="Horizontal" x:Name="deleteLand">
-                                                        <Label HorizontalOptions="StartAndExpand">
+                                                        <Label  HorizontalOptions="StartAndExpand">
                                                             <Label.FormattedText>
                                                                 <FormattedString>
                                                                     <Span Text="{Binding FullName}" TextColor="#343a40" FontAttributes="Bold" FontSize="17"/>
-                                                                    
-                                                                    <Span Text="{Binding LandName}" FontSize="15"/>
+                                                                  <Span Text="{x:Static x:Environment.NewLine}" />
+                                                                    <Span Text="{Binding UserName}" FontSize="15" FontAttributes="Bold"/>
                                                                 </FormattedString>
                                                             </Label.FormattedText>
-                                                        </Label>
-                                                        
-                                                        <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand" Margin="0,0,0,35">
-                                                            <StackLayout >
-                                                                <Button  Text="Accept" FontSize="14" CommandParameter="{Binding .}" />
-                                                            </StackLayout>                                                            
+                                                        </Label>                                               
+                                                    </StackLayout>
+                                                    <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand" Padding="1" >
+                                                        <StackLayout>
+                                                            <Button CornerRadius="20" BackgroundColor="Red" FontAttributes="Bold" Text="Approve" FontSize="13" Clicked="Approve_Clicked" CommandParameter="{Binding .}" />
                                                         </StackLayout>
                                                     </StackLayout>
                                                 </StackLayout>
@@ -76,9 +81,7 @@
                         </ListView.ItemTemplate>
                     </ListView>
                 </StackLayout>
-                <StackLayout Margin="70,0,70,0" >
-                    <Button CornerRadius="20" Command="{Binding addlandCommand}" Text=" Sign Up"/>
-                </StackLayout>
+               
             </StackLayout>
         </Grid>
     </ContentPage.Content>

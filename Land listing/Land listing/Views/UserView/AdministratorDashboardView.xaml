@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ViewModel="clr-namespace:Land_listing.ViewModels.User"
-             xmlns:helpers="clr-namespace:Land_listing.Resources"
+             xmlns:helpers="clr-namespace:Land_listing.Resources" xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
              x:Class="Land_listing.Views.UserView.AdministratorDashboardView"
              Title="Dashboard">
     
@@ -25,110 +25,84 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            
-            <Grid Grid.Row="0">
-                <Label HorizontalOptions="EndAndExpand" Margin="0,7,12,0" FontSize="18" FontAttributes="Bold" TextColor="#1b4965" >
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <Span Text="Hello "/>
-                            <Span x:Name="hello" />
-                        </FormattedString>
-                    </Label.FormattedText>
-                </Label>
-                <Grid/>
-                <Grid Grid.Row="1" Grid.RowSpan="8" Margin="2,0,2,0">
-                    
-                        <StackLayout>
-                            <CarouselView x:Name="carousel" Margin="2" IsBounceEnabled="True"  IndicatorView="indicatorView">
-                                <CarouselView.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid HorizontalOptions="FillAndExpand">
-                                            <Image Source="{Binding image}" Aspect="AspectFill"/>
-                                        </Grid>
-                                    </DataTemplate>
-                                </CarouselView.ItemTemplate>
-                            </CarouselView>
-                            <IndicatorView   x:Name="indicatorView" 
-                             IndicatorColor="Gray"
-                             SelectedIndicatorColor="DarkGray"
-                             IndicatorSize="10"
-                             VerticalOptions="Center">
-                            </IndicatorView>
-                        </StackLayout>                 
-                </Grid>
-                <Grid Grid.Row="9" Margin="5,2" HorizontalOptions="CenterAndExpand">
-                    <Label Text="Admin Panel " FontSize="18" FontAttributes="Bold" TextColor="#1b4965"/>
-                </Grid>
-                <Grid Margin="15,5" Grid.Row="10" Grid.RowSpan="8">
-                   
-                    <StackLayout>
+            <StackLayout>
+                <StackLayout>
+                    <StackLayout Margin="0,10,0,0"   Orientation="Horizontal">
+                        <Frame CornerRadius="20" Padding="30,9,30,9" BackgroundColor="#f8f9fa" HorizontalOptions="CenterAndExpand" Margin="0,10">
+                            <StackLayout Orientation="Horizontal">
+                                <Frame x:Name="framedash" BackgroundColor="MidnightBlue" CornerRadius="15" Padding="15,9,20,9">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="DashBoard_Tapped"/>
+                                    </Frame.GestureRecognizers>
+                                    <StackLayout>
+                                        <Label x:Name="dashlbl" Text="Dashboard" TextColor="White" FontSize="18" FontAttributes="Bold" />
+                                    </StackLayout>
+                                </Frame>
+                                <Frame x:Name="framestatus" CornerRadius="15" Padding="15,9,20,9" >
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="Status_Tapped"/>
+                                    </Frame.GestureRecognizers>
+                                    <StackLayout>
+                                        <Label x:Name="statuslbl" Text="     Status   " TextColor="MidnightBlue" FontSize="17"  FontAttributes="Bold" />
+                                    </StackLayout>
+                                </Frame>
+                            </StackLayout>                            
+                        </Frame>
+                        
+                    </StackLayout>
+                    <StackLayout Margin="30,30" x:Name="frameView">
                         <StackLayout Orientation="Horizontal">
-                            <Frame>
+                            <Frame  CornerRadius="15" Margin="18,0,10,0" HasShadow="True" BackgroundColor="#fcbf49" HorizontalOptions="StartAndExpand">
                                 <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="GetUsers_Tapped"/>
+                                    <TapGestureRecognizer Tapped="GoToUsers_Tapped"/>
                                 </Frame.GestureRecognizers>
                                 <StackLayout>
-                                    <Image Source="{FontImage FontFamily={StaticResource MaterialFontFamily},
-                                                 Glyph={x:Static helpers:IconFont.AccountOutline},Size=25,Color=#4d908e}"/>
-                                    <Label Text="20" FontSize="17" FontAttributes="Bold" HorizontalOptions="CenterAndExpand"/>
-                                    <Label Text="All users"/>
+                                    <ImageButton HorizontalOptions="CenterAndExpand" Source="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static helpers:IconFont.Account},Size=40,Color=White}" BackgroundColor="Transparent" />
+                                    <Label Text="27" TextColor="WhiteSmoke" FontAttributes="Bold" HorizontalOptions="CenterAndExpand"/>
+                                    <Label Text="   Total users     " TextColor="White" FontAttributes="Bold" FontSize="15" HorizontalOptions="CenterAndExpand"/>
                                 </StackLayout>
                             </Frame>
-                            <Frame>
+                            <Frame  CornerRadius="15" Margin="0,0,10,0" HasShadow="True" BackgroundColor="#7bdff2"  HorizontalOptions="EndAndExpand">
                                 <StackLayout>
-                                    <Image Source="{FontImage FontFamily={StaticResource MaterialFontFamily},
-                                                 Glyph={x:Static helpers:IconFont.BlockHelper},Size=25,Color=#4d908e}"/>
-                                    <Label Text="20" HorizontalOptions="CenterAndExpand" FontSize="17" FontAttributes="Bold"/>
-                                    <Label Text="Blocked users"/>
+                                    <StackLayout>
+                                        <ImageButton HorizontalOptions="CenterAndExpand" Source="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static helpers:IconFont.FrequentlyAskedQuestions},Size=40,Color=White}" BackgroundColor="Transparent" />
+                                        <Label HorizontalOptions="CenterAndExpand" Text="27" TextColor="White" FontAttributes="Bold" FontSize="15"/>
+                                        <Label Margin="5,0" Text="User request" TextColor="White" FontAttributes="Bold" FontSize="15"/>
+                                    </StackLayout>
                                 </StackLayout>
                             </Frame>
-                            <Frame>
-                                <StackLayout>
-                                    
-                                    <Image Source="{FontImage FontFamily={StaticResource MaterialFontFamily},
-                                                 Glyph={x:Static helpers:IconFont.FrequentlyAskedQuestions},Size=25,Color=#4d908e}"/>
-                                    <Label Text="20" HorizontalOptions="CenterAndExpand" FontSize="17" FontAttributes="Bold"/>
-                                    <Label Text="User requests"/>
-                                </StackLayout>
-                            </Frame>
-
                         </StackLayout>
-                        <StackLayout Margin="0,29" Orientation="Horizontal">
-                            <Frame>
+                        <StackLayout Margin="0,15" Orientation="Horizontal">
+                            <Frame CornerRadius="15" Margin="15,0,5,0" BackgroundColor="#f07167" HasShadow="True" HorizontalOptions="StartAndExpand">
                                 <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="Getlands_Tapped"/>
+                                    <TapGestureRecognizer Tapped="GoToLands_Tapped"/>
                                 </Frame.GestureRecognizers>
-                                <StackLayout>
-                                    <Image Source="{FontImage FontFamily={StaticResource MaterialFontFamily},Glyph={x:Static helpers:IconFont.CropLandscape},Size=25,Color=#4d908e}"/>
-                                    <Label Text="20" HorizontalOptions="CenterAndExpand" FontSize="17" FontAttributes="Bold"/>
-                                    <Label Text="  All lands  "/>
+                                <StackLayout HorizontalOptions="CenterAndExpand">
+                                    <ImageButton HorizontalOptions="CenterAndExpand" Source="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static helpers:IconFont.CropLandscape},Size=40,Color=White}" BackgroundColor="Transparent" />
+                                    <Label Text="27" HorizontalOptions="CenterAndExpand" TextColor="White" FontAttributes="Bold" FontSize="15"/>
+                                    <Label Text="Total land sites" TextColor="White" FontAttributes="Bold" FontSize="15"/>
                                 </StackLayout>
                             </Frame>
-                            <Frame>
-                                <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
-                                </Frame.GestureRecognizers>
+                            <Frame CornerRadius="15" Margin="5,0,12,0"  HasShadow="True" BackgroundColor="#b1a7a6" HorizontalOptions="EndAndExpand">
                                 <StackLayout>
-                                    <Image Source="{FontImage FontFamily={StaticResource MaterialFontFamily},
-                                                 Glyph={x:Static helpers:IconFont.PointOfSale},Size=25,Color=#4d908e}"/>
-                                    <Label Text="20" HorizontalOptions="CenterAndExpand" FontSize="17" FontAttributes="Bold"/>
-                                    <Label Text="  Land sold  "/>
+                                    <StackLayout>
+                                        <ImageButton HorizontalOptions="CenterAndExpand" Source="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static helpers:IconFont.Sale},Size=40,Color=White}" BackgroundColor="Transparent" />
+                                        <Label Text="27" HorizontalOptions="CenterAndExpand" TextColor="White" FontAttributes="Bold" FontSize="15" />
+                                        <Label Text="     Land sold   " TextColor="White" FontAttributes="Bold" FontSize="15"/>
+                                    </StackLayout>
                                 </StackLayout>
                             </Frame>
-                            <Frame>
-                                <StackLayout>
-                                    <Image Source="{FontImage FontFamily={StaticResource MaterialFontFamily},
-                                                 Glyph={x:Static helpers:IconFont.CurrencyUsd},Size=25,Color=#4d908e}"/>
-                                    <Label Text="20" HorizontalOptions="CenterAndExpand" FontSize="17" FontAttributes="Bold"/>
-                                    <Label Text="Total earnings"/>
-                                </StackLayout>
-                            </Frame>
-
                         </StackLayout>
                     </StackLayout>
-                    
-                </Grid>
-            </Grid>
+                    <StackLayout x:Name="chartview">
+                        <microcharts:ChartView x:Name="chartView" HeightRequest="300" WidthRequest="250"/>
+                       
+                    </StackLayout>
+                   
+                </StackLayout>
+               
+            </StackLayout>
+            
         </Grid>
     </ContentPage.Content>
 </ContentPage>

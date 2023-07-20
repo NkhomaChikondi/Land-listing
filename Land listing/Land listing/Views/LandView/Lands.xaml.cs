@@ -16,10 +16,12 @@ namespace Land_listing.Views.LandView
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class Lands : ContentPage
 	{
+        Models.User getUser;
 		public Lands (User user)
 		{
 			InitializeComponent ();
             BindingContext = new LandViewModel();
+            getUser = user;
             if (user.Usertype == "Administrator")
             {
                 
@@ -48,8 +50,10 @@ namespace Land_listing.Views.LandView
 
         private async void UserRequest_Clicked(object sender, EventArgs e)
         {
+            ImageButton button = (ImageButton)sender;
+            var land = (Land)button.CommandParameter;
             // navigate to this page
-            await Shell.Current.Navigation.PushAsync(new UserlandView());
+            await Shell.Current.Navigation.PushAsync(new UserlandView(land.LandId,getUser));
         }
 
         private void sendMoney_Clicked(object sender, EventArgs e)

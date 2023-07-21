@@ -128,13 +128,11 @@ namespace Land_listing.Views.UserView
                 Viewingrequest.Text = requestedUserLands.Count().ToString();
             else Viewingrequest.Text = "0";
         }
-
         private async void GoToLands_Tapped(object sender, EventArgs e)
         {
             // navigate to land page
               await Shell.Current.Navigation.PushAsync(new Lands(getUser));
         }
-
         private async void GoToUsers_Tapped(object sender, EventArgs e)
         {
             // navigate to user page

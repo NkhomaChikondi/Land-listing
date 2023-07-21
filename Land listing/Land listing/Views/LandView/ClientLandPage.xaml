@@ -50,7 +50,7 @@
                 </StackLayout>
                
                 <StackLayout HorizontalOptions="EndAndExpand" Margin="20,0">
-                    <ImageButton Source ="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static helpers:IconFont.Sort},Size=26,Color=#495057}" BackgroundColor="Transparent" />
+                    <ImageButton Source ="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static helpers:IconFont.Sort},Size=26,Color=#495057}" BackgroundColor="Transparent" Clicked="ImageButton_Clicked" />
                 </StackLayout>
                 <StackLayout>
                     <ListView ItemsSource="{Binding Lands}"                     

@@ -19,6 +19,10 @@ namespace Land_listing.ViewModels.Land
         List<userlanddata> userlanddatas = new List<userlanddata>(); 
         public int landId;
         private string landName;
+        private bool location;
+        private bool price;
+        private bool all = true;
+        private bool date;
 
         public string LandName { get => landName; set => landName = value; }
         //commands
@@ -32,7 +36,10 @@ namespace Land_listing.ViewModels.Land
         public ObservableRangeCollection<Models.Land> Lands { get; }
         public ObservableRangeCollection<userlanddata> User_Land { get; }
         public ObservableRangeCollection<Notification> notifications { get; }
-       
+        public bool Location { get => location; set => location = value; }
+        public bool Price { get => price; set => price = value; }
+        public bool All { get => all; set => all = value; }
+        public bool Date { get => date; set => date = value; }
 
         public LandViewModel()
         {
@@ -46,7 +53,6 @@ namespace Land_listing.ViewModels.Land
             User_Land = new ObservableRangeCollection<userlanddata>();
             notifications = new ObservableRangeCollection<Notification>();
         }
-
         private async Task processLandViewing(Models.Land land)
         {
             // make sure both land and userId are not empty
@@ -78,21 +84,51 @@ namespace Land_listing.ViewModels.Land
             }
             else return;
         }
-
         private async Task addland()
         {
             // navigate to add land page
             await Shell.Current.Navigation.PushAsync(new AddlandPage());
         }
-
         private async Task deleteUser()
         {
             
         }
-
         private Task updateUser(int arg)
         {
             throw new NotImplementedException();
+        }
+
+        public void AllLands()
+        {
+            location = false;
+            price = false;
+            date = false;
+            All = true;
+            Refresh();
+        }
+        public void landLocation()
+        {
+            location = true;
+            price = false;
+            date = false;
+            All = false;
+            Refresh();
+        }
+        public void landPrice()
+        {
+            location = false;
+            price = true;
+            date = false;
+            All = false;
+            Refresh();
+        }
+        public void dateCreated()
+        {
+            location = false;
+            price = false;
+            date = true;
+            All = false;
+            Refresh();
         }
         private async Task Refresh()
         {           
@@ -101,8 +137,24 @@ namespace Land_listing.ViewModels.Land
             Lands.Clear();
             // get all users
             var lands = await dataLand.GetlandsAsync();
+            if(all)
             // retrieve the users back
             Lands.AddRange(lands);
+            else if(location)
+            {
+                var locationland = lands.OrderBy(L => L.Location).ToList();
+                Lands.AddRange(locationland);
+            }
+            else if(price)
+            {
+                var priceland = lands.OrderBy(L => L.Price).ToList();
+                Lands.AddRange(priceland);
+            }
+            else if(date)
+            {
+                var dateland = lands.OrderBy(L => L.CreatedOn).ToList();
+                Lands.AddRange(dateland);
+            }
             // set "isBusy" to true
             IsBusy = false;
         }

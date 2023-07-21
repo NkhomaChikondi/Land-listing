@@ -64,9 +64,37 @@ namespace Land_listing.Views.UserView
                // await App.Current.MainPage.DisplayAlert("Alert", "User blocked successfully", "Ok");
             }
         }
-        private void ImageButton_Clicked(object sender, EventArgs e)
+        private  async void ImageButton_Clicked(object sender, EventArgs e)
         {
-
+            var action = await DisplayActionSheet("Sort by:", "Cancel", "","All", "Ascending", "Descending","Date Created");
+            if (action == "All")
+            {
+                if (BindingContext is UserViewModel viewModel)
+                {
+                     viewModel.AllUsers();
+                }
+            }
+            if (action == "Ascending")
+            {
+                if (BindingContext is UserViewModel viewModel)
+                {
+                    viewModel.AscendingUsers();
+                }
+            }
+            if (action == "Descending")
+            {
+                if (BindingContext is UserViewModel viewModel)
+                {
+                    viewModel.DescendingUsers();
+                }
+            }
+            if (action == "Date Created")
+            {
+                if (BindingContext is UserViewModel viewModel)
+                {
+                    viewModel.DateUser();
+                }
+            }
         }
     }
 }

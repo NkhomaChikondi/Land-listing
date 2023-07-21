@@ -11,6 +11,10 @@ namespace Land_listing.ViewModels.User
 {
     public class UserViewModel: BaseViewModel
     {
+        private bool all = true;
+        private bool ascending;
+        private bool descending;
+        private bool date;
         //commands
         public AsyncCommand deleteUserCommand { get; set; }
         public AsyncCommand<int> UpdateUserCommand { get; set; }
@@ -19,6 +23,11 @@ namespace Land_listing.ViewModels.User
 
         // collections
         public ObservableRangeCollection<Models.User> Users { get; }
+        public bool All { get => all; set => all = value; }
+        public bool Ascending { get => ascending; set => ascending = value; }
+        public bool Descending { get => descending; set => descending = value; }
+        public bool Date { get => date; set => date = value; }
+
         public UserViewModel()
         {
             deleteUserCommand = new AsyncCommand(deleteUser);
@@ -27,16 +36,47 @@ namespace Land_listing.ViewModels.User
             refreshCommand = new AsyncCommand(Refresh);
             Users = new ObservableRangeCollection<Models.User>();
         }
-
+        public void AllUsers()
+        {
+            ascending = false;
+            descending = false;
+            date = false;
+            All = true;
+            Refresh();
+        }
+        public void AscendingUsers()
+        {
+            ascending = true;
+            descending = false;
+            date = false;
+            All = false;
+            Refresh();
+        }
+        public void DescendingUsers()
+        {
+            ascending = false;
+            descending = true;
+            date = false;
+            All = false;
+            Refresh();
+        }
+        public void DateUser()
+        {
+            ascending = false;
+            descending = false;
+            date = true;
+            All = false;
+            Refresh();
+        }
         private async Task blockUser(Models.User user)
         {
             // check if the user has already been blocked
-            if(user.Blocked)
+            if (user.Blocked)
             {
                 await App.Current.MainPage.DisplayAlert("Alert", "User already blocked", "Ok");
                 return;
             }
-            else if(!user.Blocked)
+            else if (!user.Blocked)
             {
                 var result = await App.Current.MainPage.DisplayAlert("Alert", "This User will be Blocked, Continue?", "Yes", "Cancel");
                 if (result)
@@ -50,10 +90,9 @@ namespace Land_listing.ViewModels.User
 
             }
         }
-
         private async Task updateUser(int id)
         {
-            var result = await App.Current.MainPage.DisplayAlert("Alert","All land viewing request (if any) associated with this account will be deleted","Yes","No");
+            var result = await App.Current.MainPage.DisplayAlert("Alert", "All land viewing request (if any) associated with this account will be deleted", "Yes", "No");
             if (result)
             {
                 // get all userlands
@@ -74,26 +113,45 @@ namespace Land_listing.ViewModels.User
             }
             else
                 return;
-           
         }
-
         private Task deleteUser()
         {
             throw new NotImplementedException();
         }
-
         public async Task Refresh()
         {
             // set "IsBusy" to true
-            IsBusy = true;           
+            IsBusy = true;
             // clear users on the page
             Users.Clear();
             // get all users
             var users = await dataUser.GetUsersAsync();
-            // retrieve the users back
-            Users.AddRange(users);
+            //filter data
+            if(all)
+            { 
+                // retrieve the users back
+                Users.AddRange(users);
+            }
+            else if(ascending)
+            { 
+              var inAscending = users.OrderBy(U => U.FullName).ToList();
+                Users.AddRange(inAscending);
+            }
+            else if(descending)
+            {
+                var indescending = users.OrderByDescending(U => U.FullName).ToList();
+                Users.AddRange(indescending);
+            }
+            else if(Date)
+            {
+                var inDate = users.OrderBy(U => U.CreatedOn).ToList();
+                Users.AddRange(inDate);
+            }
             // set "isBusy" to true
             IsBusy = false;
         }
-    }
+    }    
 }
+      
+
+

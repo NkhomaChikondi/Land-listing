@@ -62,5 +62,39 @@ namespace Land_listing.Views.LandView
             // go to editUser page
             await Shell.Current.Navigation.PushAsync(new EditUserPage(GetUser));
         }
+
+        private async void ImageButton_Clicked(object sender, EventArgs e)
+        {
+            var action = await DisplayActionSheet("Sort by:", "Cancel", "", "All", "Location", "Price", "Date Created");
+            if (action == "All")
+            {
+                if (BindingContext is LandViewModel viewModel)
+                {
+                    viewModel.AllLands();
+                }
+            }
+            if (action == "Location")
+            {
+                if (BindingContext is LandViewModel viewModel)
+                {
+                    viewModel.landLocation();
+                }
+            }
+            if (action == "Price")
+            {
+                if (BindingContext is LandViewModel viewModel)
+                {
+                    viewModel.landPrice();
+                }
+            }
+            if (action == "Date Created")
+            {
+                if (BindingContext is LandViewModel viewModel)
+                {
+                    viewModel.dateCreated();
+                }
+            }
+        }
     }
+    
 }

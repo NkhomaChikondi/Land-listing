@@ -191,6 +191,7 @@ namespace Land_listing.ViewModels.Land
                             };
                             // add to the database
                             await dataNotification.AddNotificationAsync(newNotification);
+                            await LoadUserLandData();
                             Datatoast.toast("Approved notification sent");
                         }
                     }
@@ -222,19 +223,26 @@ namespace Land_listing.ViewModels.Land
                 var alluserLands = user_lands.Where(ul => ul.UserId == land.UserId && ul.landId == landId).ToList();
                 if (alluserLands.Count() > 0)
                 {
+                    userlanddatas.Clear();
                     // loop through the userlands and create new objects
                     foreach (var item in alluserLands)
                     {
+                        string approve;
                         // get the land having the item.landId
                         var user = await dataUser.GetUserAsync(item.UserId);
                         if (user != null)
                         {
+                            if (item.Requested)
+                                approve = "Approved";
+                            else approve = "Approve";
+                            
                             // create a new userlanddata object
                             var newuserlanddata = new userlanddata
                             {
                                 Id = item.UserId,
                                 FullName = user.FullName,  
-                                UserName = user.Username
+                                UserName = user.Username,
+                                Approve = approve
                             };
                             userlanddatas.Add(newuserlanddata);
                         }
@@ -259,7 +267,7 @@ namespace Land_listing.ViewModels.Land
             // get all users
             var dbnotifications = await dataNotification.GetNotificationsAsync();
             // take only notifications that has the user id
-            var userNotifications = dbnotifications.Where( n => n.userId == user.UserId ).ToList(); 
+            var userNotifications = dbnotifications.Where( n => n.userId == user.UserId ).ToList();           
             // retrieve the users back
             notifications.AddRange(userNotifications);
             // set "isBusy" to true

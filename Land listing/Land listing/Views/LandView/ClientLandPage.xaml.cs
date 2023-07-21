@@ -44,8 +44,7 @@ namespace Land_listing.Views.LandView
                 var land = (Land)button.CommandParameter;
                 if (BindingContext is LandViewModel viewModel)
                 {
-                    await viewModel.processLandViewingCommand.ExecuteAsync(land);
-                   
+                    await viewModel.processLandViewingCommand.ExecuteAsync(land);                   
                 }
             }
             else
@@ -62,7 +61,6 @@ namespace Land_listing.Views.LandView
             // go to editUser page
             await Shell.Current.Navigation.PushAsync(new EditUserPage(GetUser));
         }
-
         private async void ImageButton_Clicked(object sender, EventArgs e)
         {
             var action = await DisplayActionSheet("Sort by:", "Cancel", "", "All", "Location", "Price", "Date Created");

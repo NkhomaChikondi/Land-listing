@@ -72,7 +72,7 @@
                                                     </StackLayout>
                                                     <StackLayout x:Name="stack" Orientation="Horizontal" HorizontalOptions="EndAndExpand" Padding="1" >
                                                         <StackLayout>
-                                                            <Button CornerRadius="20" BackgroundColor="Red" FontAttributes="Bold" Text="Approve" FontSize="13" Clicked="Approve_Clicked" CommandParameter="{Binding .}" />
+                                                            <Button x:Name="btn" CornerRadius="20" BackgroundColor="Red" FontAttributes="Bold" Text="{Binding Approve }" FontSize="13" Clicked="Approve_Clicked" CommandParameter="{Binding .}" />
                                                         </StackLayout>                                                       
                                                     </StackLayout>
                                                 </StackLayout>

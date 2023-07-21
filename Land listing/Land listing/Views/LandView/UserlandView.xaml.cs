@@ -49,11 +49,12 @@ namespace Land_listing.Views.LandView
         private async void Approve_Clicked(object sender, EventArgs e)
         {
 
-            Button button = (Button)sender;
+            Button button = (Button)sender;            
             var Userland = (userlanddata)button.CommandParameter;
             if (BindingContext is LandViewModel viewModel)
             {
                 await viewModel.AddNotification(sitename, Userland.Id,getLandId);
+                
             }
                       
         }

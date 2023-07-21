@@ -58,38 +58,8 @@
                         <StackLayout Grid.Row="2" Grid.ColumnSpan="4" Margin="10" Orientation="Vertical">
                             <Entry Text="{Binding Confirmpassword}" IsPassword="True" Placeholder="Confirm Password" FontSize="17" />
                         </StackLayout>
-                        
-                        <StackLayout  Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" Margin="18" Orientation="Vertical">
-                            <StackLayout Grid.Row="4" Grid.ColumnSpan="4" Margin="0,0,13,0" HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
-                                <Label Text="Select User Type" TextColor="#22223b"   FontSize="17"  FontFamily="RobotoBold" />                                
-                            </StackLayout>
-
-                            <StackLayout Grid.Column="0" Grid.ColumnSpan="4" Orientation="Horizontal">
-                                <StackLayout Grid.Column="0" Grid.ColumnSpan="4"  Margin="15,5" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-                                    <CheckBox 
-                                              x:Name="client"
-                                              IsChecked="{Binding Client }"
-                                              Color="#22223b"
-                                       CheckedChanged ="client_CheckedChanged">
-
-                                    </CheckBox>
-                                    <Label Margin="0,14" FontSize="15"  Text="Client"/>
-                                </StackLayout>
-                                <StackLayout Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="4"  Margin="0,0,0,0" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-                                    <StackLayout Margin="0,0,0,0"  Grid.ColumnSpan="2" Orientation="Horizontal">
-                                        <CheckBox 
-                                              x:Name="administrator"
-                                              IsChecked="{Binding Administrator}"
-                                              Color="#22223b"
-                                               CheckedChanged="administrator_CheckedChanged">
-                                        </CheckBox>
-                                        <Label Margin="0,20"  FontSize="15" Text="Administrator"/>
-                                    </StackLayout>
-                                </StackLayout>
-                            </StackLayout>
-                            
-                        </StackLayout>
-                        <StackLayout Margin="70,0,70,0" >
+                       
+                        <StackLayout Margin="70,20,70,0" >
                             <Button CornerRadius="20" Command="{Binding AddUserCommand}" Text=" Sign Up"/>
                         </StackLayout>
                         <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal" Margin="105,10,100,0" >

@@ -10,35 +10,31 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Land_listing.Services;
 
 namespace Land_listing.Views.UserView
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AdministratorDashboardView : ContentPage
     {
+        public IDataUser<Models.User> dataUser { get; set; }
+        public IdataLand<Models.Land> dataLand { get; set; }
+        public IdataUserland<User_Land> dataUserLand { get; set; }
         private User getUser;
         public AdministratorDashboardView( User user)
         {
             InitializeComponent();
-           // hello.Text = user.Username;
-           // List<CarouselImage> images = new List<CarouselImage>()
-           // {
-           //     new CarouselImage {image = "image1.png"},
-           //     new CarouselImage {image = "image2.png"},
-           //     new CarouselImage {image = "image3.png"}
-           // };
-           //carousel.ItemsSource = images;
-           // Device.StartTimer(TimeSpan.FromSeconds(2), (Func<bool>)(() =>
-           // {
-           //     carousel.Position = (carousel.Position + 1) % images.Count();
-           //     return true;
-           // }));
-           getUser = user;
+            dataUser = DependencyService.Get<IDataUser<Models.User>>();
+            dataLand = DependencyService.Get<IdataLand<Models.Land>>();
+            dataUserLand = DependencyService.Get<IdataUserland<User_Land>>();
+            
+            getUser = user;
         }
         protected async override void OnAppearing()
         {
             base.OnAppearing();
             onDashboardAppearance();
+            DashboardFigure();
             List<ChartEntry> entries = new List<ChartEntry>
             {
                   new ChartEntry(212)
@@ -72,35 +68,65 @@ namespace Land_listing.Views.UserView
 
         private void DashBoard_Tapped(object sender, EventArgs e)
         {
-            dashlbl.TextColor = Color.White;
-            framedash.BackgroundColor = Color.MidnightBlue;
+            dashlbl.TextColor = Color.FromHex("#2f3e46");
+            framedash.BorderColor = Color.FromHex("#84a59d");
             frameView.IsVisible = true;
 
-            statuslbl.TextColor = Color.MidnightBlue;
-            framestatus.BackgroundColor = Color.White;
+            statuslbl.TextColor = Color.FromHex("#84a59d");
+            framestatus.BorderColor = Color.White;
             chartView.IsVisible = false;
         }
 
         private void Status_Tapped(object sender, EventArgs e)
         {
 
-            statuslbl.TextColor = Color.White;
-            framestatus.BackgroundColor = Color.MidnightBlue;
+            statuslbl.TextColor = Color.FromHex("#2f3e46");
+            framestatus.BorderColor = Color.FromHex("#84a59d");
             chartView.IsVisible = true;
 
-            dashlbl.TextColor = Color.MidnightBlue;
-            framedash.BackgroundColor = Color.White;
+            dashlbl.TextColor = Color.FromHex("#84a59d");
+            framedash.BorderColor = Color.White;
             frameView.IsVisible = false;
         }
         public void onDashboardAppearance()
         {
-            dashlbl.TextColor = Color.White;
-            framedash.BackgroundColor = Color.MidnightBlue;
+            dashlbl.TextColor = Color.FromHex("#2f3e46");
+            framedash.BorderColor = Color.FromHex("#84a59d");
             frameView.IsVisible = true;
 
-            statuslbl.TextColor = Color.MidnightBlue;
-            framestatus.BackgroundColor = Color.White;
+            statuslbl.TextColor = Color.FromHex("#84a59d");
+            framestatus.BorderColor = Color.White;
             chartView.IsVisible = false;
+        }
+
+        async Task DashboardFigure()
+        {
+            // get all users in the system
+            var allUsers = await dataUser.GetUsersAsync();
+            if (allUsers.Count() > 0)
+                totaluser.Text = allUsers.Count().ToString();
+            else if (allUsers.Count() == 0)
+                totaluser.Text = "0";
+
+            // get only blocked users
+            var blockedUsers = allUsers.Where(U => U.Blocked).ToList();
+            if (blockedUsers.Count() > 0)
+                userblocked.Text = blockedUsers.Count().ToString();
+            else userblocked.Text = "0";
+
+            // get all lands created in the system
+            var allLands = await dataLand.GetlandsAsync();
+            if(allLands.Count() > 0)
+                landsites.Text = allLands.Count().ToString();
+            else landsites.Text = "0";
+           
+            // get all userland
+            var alluserLand = await dataUserLand.GetUserlandsAsync();
+            // get only userlands whose requested is true
+            var requestedUserLands = alluserLand.Where(ul => ul.Requested).ToList();
+            if(requestedUserLands.Count() > 0)
+                Viewingrequest.Text = requestedUserLands.Count().ToString();
+            else Viewingrequest.Text = "0";
         }
 
         private async void GoToLands_Tapped(object sender, EventArgs e)

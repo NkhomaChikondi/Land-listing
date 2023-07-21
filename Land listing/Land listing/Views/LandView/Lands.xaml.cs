@@ -43,9 +43,12 @@ namespace Land_listing.Views.LandView
             }            
         }
 
-        private void Delete_Clicked(object sender, EventArgs e)
+        private async void Delete_Clicked(object sender, EventArgs e)
         {
-
+            ImageButton button = (ImageButton)sender;
+            var land = (Land)button.CommandParameter;
+            // navigate to this page
+            await Shell.Current.Navigation.PushAsync(new EditLandPage(land));
         }
 
         private async void UserRequest_Clicked(object sender, EventArgs e)

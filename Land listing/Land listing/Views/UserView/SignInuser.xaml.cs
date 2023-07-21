@@ -23,7 +23,7 @@ namespace Land_listing.Views.UserView
             base.OnAppearing();
             if(BindingContext is AddUserViewModel viewModel)
             {
-            
+                await viewModel.createUser();
             }
         }
 

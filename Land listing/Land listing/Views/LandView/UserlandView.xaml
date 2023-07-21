@@ -24,9 +24,12 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <StackLayout>
-                <StackLayout HorizontalOptions="CenterAndExpand">
-                    <Label  Text="Land Viewing Requests" Margin="70,0" TextColor="#495057" FontAttributes="Bold" FontSize="18"/>
-                    <Label Margin="58,0" Text="Approve user viewing requests" TextColor="#495057" FontAttributes="Italic" FontSize="15.5"/>
+                <StackLayout HorizontalOptions="CenterAndExpand" Margin="0,15">
+                    <StackLayout Orientation="Horizontal">
+                        <Label HorizontalOptions="CenterAndExpand" Text="Land Viewing Requests" FontSize="20" TextColor="#22223b" Margin="68,0"  FontAttributes="Bold" />
+                    </StackLayout>
+
+                    <Label HorizontalOptions="CenterAndExpand" Text="approve user viewing requests" FontSize="15" TextColor="#70798c" FontAttributes="Bold" />
                 </StackLayout>
                 <StackLayout HorizontalOptions="EndAndExpand" Margin="20,0">
                     <ImageButton Source="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static helpers:IconFont.Sort},Size=26,Color=#495057}" BackgroundColor="Transparent" />
@@ -67,10 +70,10 @@
                                                             </Label.FormattedText>
                                                         </Label>                                               
                                                     </StackLayout>
-                                                    <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand" Padding="1" >
+                                                    <StackLayout x:Name="stack" Orientation="Horizontal" HorizontalOptions="EndAndExpand" Padding="1" >
                                                         <StackLayout>
                                                             <Button CornerRadius="20" BackgroundColor="Red" FontAttributes="Bold" Text="Approve" FontSize="13" Clicked="Approve_Clicked" CommandParameter="{Binding .}" />
-                                                        </StackLayout>
+                                                        </StackLayout>                                                       
                                                     </StackLayout>
                                                 </StackLayout>
                                             </Frame>

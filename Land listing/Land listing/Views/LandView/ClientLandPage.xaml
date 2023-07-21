@@ -15,7 +15,23 @@
             </OnPlatform>
         </ResourceDictionary>
     </ContentPage.Resources>
-   
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+                 IconImageSource="{FontImage FontFamily={StaticResource MaterialFontFamily},
+                                   Glyph={x:Static helpers:IconFont.AccountEdit},Size=35,Color=#a6808c}"
+                Clicked="EditProfile_Clicked"                   
+                 Order="Primary"
+                 Priority="0"        
+        />
+        <ToolbarItem 
+                 IconImageSource="{FontImage FontFamily={StaticResource MaterialFontFamily},
+                                   Glyph={x:Static helpers:IconFont.BellAlert},Size=30,Color=#a6808c}"
+                Clicked="NotificationAlert_Clicked" 
+            
+                 Order="Primary"
+                 Priority="0"        
+        />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <Grid VerticalOptions="FillAndExpand" BackgroundColor="#f8f9fa">
             <Grid.RowDefinitions>
@@ -25,16 +41,16 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <StackLayout>
-                <StackLayout x:Name="bellAlert" HorizontalOptions="EndAndExpand" Margin="0,5,20,0">                    
-                    <ImageButton BackgroundColor="Transparent" Source="{FontImage FontFamily={StaticResource MaterialFontFamily},
-                                   Glyph={x:Static helpers:IconFont.BellAlert},Size=26,Color=Maroon}" Clicked="NotificationAlert_Clicked"/>
+                <StackLayout HorizontalOptions="CenterAndExpand" Margin="0,15">
+                    <StackLayout Orientation="Horizontal">
+                        <Label HorizontalOptions="CenterAndExpand" Text="Land" FontSize="20" TextColor="#22223b" Margin="68,0"  FontAttributes="Bold" />
+                     </StackLayout>
+
+                    <Label Text="Land sites available for viewing" FontSize="15" TextColor="#70798c" FontAttributes="Bold" />
                 </StackLayout>
-                <StackLayout HorizontalOptions="CenterAndExpand">
-                    <Label Text="Land" Margin="80,0" TextColor="#495057" FontAttributes="Bold" FontSize="18"/>
-                    <Label Text="Land Available For Viewing and Buying" TextColor="#495057" FontAttributes="Italic" FontSize="15.5"/>
-                </StackLayout>
+               
                 <StackLayout HorizontalOptions="EndAndExpand" Margin="20,0">
-                    <ImageButton Source="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static helpers:IconFont.Sort},Size=26,Color=#495057}" BackgroundColor="Transparent" />
+                    <ImageButton Source ="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static helpers:IconFont.Sort},Size=26,Color=#495057}" BackgroundColor="Transparent" />
                 </StackLayout>
                 <StackLayout>
                     <ListView ItemsSource="{Binding Lands}"                     
@@ -55,10 +71,10 @@
                                             <Frame CornerRadius="15" HorizontalOptions="FillAndExpand" Padding="5">
                                                 <StackLayout Orientation="Vertical">
                                                     <StackLayout Orientation="Horizontal">
-                                                        <Label Text=" MWK" TextColor="#4d908e" FontAttributes="Bold" FontSize="17.5"/>
-                                                        <Label Text="{Binding Price}" TextColor="#4d908e" FontAttributes="Bold" FontSize="17.5"/>
+                                                        <Label Text=" MWK" TextColor="#f95738" FontAttributes="Bold" FontSize="18"/>
+                                                        <Label Text="{Binding Price}" TextColor="#f95738" FontAttributes="Bold" FontSize="18"/>
                                                     </StackLayout>
-                                                    <StackLayout Orientation="Horizontal" x:Name="deleteLand">
+                                                    <StackLayout Orientation="Horizontal" x:Name="deleteLand" >
                                                         <Label HorizontalOptions="StartAndExpand">
                                                             <Label.FormattedText>
                                                                 <FormattedString>

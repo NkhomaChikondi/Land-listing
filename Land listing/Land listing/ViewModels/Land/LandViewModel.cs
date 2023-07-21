@@ -106,31 +106,51 @@ namespace Land_listing.ViewModels.Land
             // set "isBusy" to true
             IsBusy = false;
         }
-        public async Task AddNotification(string landname, int userId)
+        public async Task AddNotification(string landname, int userId,int landId)
         {
-            try
+            // get all user lands in the database
+            var allUserlands = await dataUserLand.GetUserlandsAsync();
+            // get only the record having the incoming userid and land id
+            var userland = allUserlands.Where(ul => ul.UserId == userId && ul.landId == landId).FirstOrDefault();
+            if(userland != null) 
             {
-                if (IsBusy)
-                    return;
-                else
+                // check if requested is true
+                if (userland.Requested)
+                    await App.Current.MainPage.DisplayAlert("Alert", "The viewing request of this land, has already been approved", "Ok");
+                else 
                 {
-                    // create a new notification
-                    var newNotification = new Notification
-                    {
-                        Title = "Site viewing approval",
-                        Message = $"Your site {landname} viewing request, has been approved!",
-                        userId = userId,
-                        Created = DateTime.Now
-                    };
-                    // add to the database
-                    await dataNotification.AddNotificationAsync(newNotification);
-                }
-            }
-            catch (Exception)
-            {
+                    // update userland
+                    userland.Requested = true;
+                    await dataUserLand.UpdateUserlandAsync(userland);
 
-                throw;
+                    try
+                    {
+                        if (IsBusy)
+                            return;
+                        else
+                        {
+                            // create a new notification
+                            var newNotification = new Notification
+                            {
+                                Title = "Site viewing approval",
+                                Message = $"Your site {landname} viewing request, has been approved!",
+                                userId = userId,
+                                Created = DateTime.Now
+                            };
+                            // add to the database
+                            await dataNotification.AddNotificationAsync(newNotification);
+                            Datatoast.toast("Approved notification sent");
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
+                }
+               
             }
+           
 
         }
         private async Task LoadUserLandData()

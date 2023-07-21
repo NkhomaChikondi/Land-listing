@@ -27,12 +27,14 @@
                     </Grid.RowDefinitions>
                 </Grid>
                 <StackLayout Grid.ColumnSpan="4">
-                    <StackLayout Grid.Row="0" Grid.ColumnSpan="4"  Orientation="Vertical" Margin="0,0">
-                        <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
-                            <Label Text="Create Land"  FontFamily="RobotoBlack" FontSize="Large"/>
+                    <StackLayout HorizontalOptions="CenterAndExpand" Margin="0,10">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="   Create Land Site" FontSize="20" TextColor="#22223b" FontAttributes="Bold" />
                             <Image Source="{FontImage FontFamily={StaticResource MaterialFontFamily},
-                                                 Glyph={x:Static helpers:IconFont.FocusField},Size=25,Color=#61a5c2}"/>
+                            Glyph={x:Static helpers:IconFont.FocusField},Size=27,Color=#84a59d}"/>
                         </StackLayout>
+
+                        <Label Text="   Enter Land site Details" FontSize="15" TextColor="#70798c" FontAttributes="Bold" />
                     </StackLayout>
                     <StackLayout Grid.Row="1" Grid.ColumnSpan="4" Margin="10" Orientation="Vertical">
 
@@ -43,12 +45,15 @@
                         <Editor Text="{Binding Location }" Placeholder="Location" MaxLength="65" FontSize="17" AutoSize="TextChanges" />
                     </StackLayout>
                     <StackLayout Grid.Row="2" Grid.ColumnSpan="4" Margin="10" Orientation="Horizontal">
-                        <Label Text="MWK" FontSize="18" Margin="0"/>
+                        <Label Text="Price(MWK)" FontSize="17" Margin="0" FontAttributes="Bold" TextColor="#70798c"/>
                         <Entry Text="{Binding Price}" Keyboard="Numeric" Placeholder="Enter price"  Margin="0,-13" MaxLength="10" FontSize="17"/>
                     </StackLayout>
 
-                    <StackLayout Grid.Row="2" Grid.ColumnSpan="4" Margin="10" Orientation="Vertical">
-                        <Entry Text="{Binding Plotsize}"  Placeholder="Plot Size" MaxLength="100" FontSize="17" />
+                    <StackLayout Grid.Row="2" Grid.ColumnSpan="4" Margin="10" Orientation="Horizontal">
+                        <Label Text="Plotsize "  TextColor="#70798c" FontSize="17" Margin="0" FontAttributes="Bold"/>
+                        <Entry Text="{Binding Num1}" Placeholder="plotsize" Keyboard="Numeric" FontSize="17"/>
+                        <Label Text="  X   " FontSize="17"/>
+                        <Entry Text="{Binding Num2}" Placeholder="plotsize" FontSize="17" Keyboard="Numeric" />
                     </StackLayout>
 
                     <StackLayout Margin="70,20,70,0" >

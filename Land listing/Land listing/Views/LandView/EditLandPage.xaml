@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:ViewModel="clr-namespace:Land_listing.ViewModels.Land"
+             xmlns:helpers="clr-namespace:Land_listing.Resources"
+             x:Class="Land_listing.Views.LandView.EditLandPage"
+             Title="Land Listing">
+    <ContentPage.BindingContext>
+        <ViewModel:addlandViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <OnPlatform x:Key="MaterialFontFamily" x:TypeArguments="x:String">
+                <On Platform="Android" Value="materialdesignicons-webfont.ttf#Material Design Icons"/>
+            </OnPlatform>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="20">
+                <StackLayout HorizontalOptions="CenterAndExpand" Margin="0,10">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="   Land Details" FontSize="20" TextColor="#22223b" FontAttributes="Bold" />
+                        <Image Source="{FontImage FontFamily={StaticResource MaterialFontFamily},
+                            Glyph={x:Static helpers:IconFont.CropLandscape},Size=27,Color=#84a59d}"/>
+                    </StackLayout>
+
+                    <Label Text="Update and delete land sites" FontSize="15" TextColor="#70798c" FontAttributes="Bold" />
+                </StackLayout>
+
+                <!-- Full Name -->
+                <Label Text="Site Name" FontSize="16" />
+                <Entry x:Name="name" Text="{Binding Name }" Placeholder="Enter your full name" />
+
+                <!-- Username -->
+                <Label Text="Location" FontSize="16" />
+                <Entry x:Name="Location" Text="{Binding Location}" Placeholder="Enter your username" />
+
+                <!-- Phone Number -->
+                <Label Text="Plot Size" FontSize="16" />
+                <Entry x:Name="Plotsize" Text="{Binding Plotsize}" Placeholder="Enter your phone number" />
+
+                <!-- Password -->
+                <StackLayout>
+                    <Label Text="Price" FontSize="16" />
+                    <StackLayout Orientation="Horizontal">
+                        <Label Margin="0,5" Text="MWK " TextColor="#22223b" FontSize="15"/>
+                        <Entry x:Name="Price"  Text="{Binding Price}" Placeholder="Enter your password" />
+                    </StackLayout>                    
+                </StackLayout>
+               
+                <StackLayout Orientation="Horizontal">
+                    <Button Text="Update Land" Command="{Binding UpdateLandCommand}" HorizontalOptions="CenterAndExpand" Margin="0,20,0,0" />
+                    <Button BackgroundColor="#ff4d6d" Text="Delete Land" Command="{Binding deleteLandCommand}" HorizontalOptions="CenterAndExpand" Margin="0,20,0,0" />
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

@@ -51,11 +51,16 @@ namespace Land_listing.Views.LandView
             else
                 return;
         }
-
         private async void NotificationAlert_Clicked(object sender, EventArgs e)
         {
             // go to notification page
             await Shell.Current.Navigation.PushAsync(new Notifications(GetUser));
+        }
+
+        private async void EditProfile_Clicked(object sender, EventArgs e)
+        {
+            // go to editUser page
+            await Shell.Current.Navigation.PushAsync(new EditUserPage(GetUser));
         }
     }
 }

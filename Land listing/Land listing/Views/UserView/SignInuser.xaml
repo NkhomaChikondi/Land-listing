@@ -50,8 +50,7 @@
                             <StackLayout Grid.Row="2" Grid.ColumnSpan="4" Margin="40,0,30,0" Orientation="Vertical">
                                 <Entry Text="{Binding Password}"  IsPassword="True"  Margin="20,0,40,0" Placeholder="Password" MaxLength="100" FontSize="17" />
                             </StackLayout>
-                        </StackLayout>
-                      
+                        </StackLayout>                      
 
                         <StackLayout Margin="110,35,100,0" >
                             <Button CornerRadius="20"  Command="{Binding LoginUserCommand}"  Text=" Sign In"/>

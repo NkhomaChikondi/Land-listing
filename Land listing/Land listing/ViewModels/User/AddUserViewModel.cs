@@ -25,6 +25,7 @@ namespace Land_listing.ViewModels.User
         private bool administrator = false;
         private string confirmpassword;
         private string usertype;
+        private int userId;
 
         public string Fullname { get => fullname; set => fullname = value; }
         public string Password { get => password; set => password = value; }
@@ -33,6 +34,8 @@ namespace Land_listing.ViewModels.User
 
         //commands
         public AsyncCommand AddUserCommand { get; set; }
+        public AsyncCommand UpdateUserCommand { get; set; }
+        public AsyncCommand DeleteUserCommand { get; set; }
         public AsyncCommand LoginUserCommand { get; set; }
 
         // collections
@@ -43,13 +46,43 @@ namespace Land_listing.ViewModels.User
         public string Usertype { get => usertype; set => usertype = value; }
         public bool Administrator { get => administrator; set => administrator = value; }
         public string Username { get => username; set => username = value; }
+        public int UserId { get => userId; set => userId = value; }
 
         public AddUserViewModel()
         {
             AddUserCommand = new AsyncCommand(AddUser);
+            UpdateUserCommand = new AsyncCommand(updateUser);
+            DeleteUserCommand = new AsyncCommand(deleteUser);
             LoginUserCommand = new AsyncCommand(LoginUser);
             Users = new ObservableRangeCollection<Models.User>();
         }
+
+        private async Task deleteUser()
+        {
+            var result = await App.Current.MainPage.DisplayAlert("Alert", "You want to delete your account. Continue?", "Yes", "No");
+            if (result)
+            {
+                // get all userlands
+                var userlands = await dataUserLand.GetUserlandsAsync();
+                // get only those having the same userid as the incoming one
+                var useralandId = userlands.Where(u => u.UserId == userId).ToList();
+                if (useralandId.Count > 0)
+                {
+                    // delete all of them
+                    foreach (var item in useralandId)
+                    {
+                        await dataUserLand.DeleteUserlandAsync(item.Id);
+                    }
+                }
+                await dataUser.DeleteUserAsync(userId);
+                // navigate to login page
+                await Shell.Current.Navigation.PushAsync(new SignInuser());
+            }
+            else
+                return;
+
+        }
+
         public async Task createUser()
         {
             // get all user in the database
@@ -66,12 +99,14 @@ namespace Land_listing.ViewModels.User
                     PhoneNumber = "0998887776",
                     Password = "@Admin123",
                     Usertype = "Administrator",
-                    Blocked = false, 
+                    Blocked = false,
                     CreatedOn = DateTime.Now,
                 };
                 // save to the database
                 await dataUser.AddUserAsync(newUser);
             }
+            else
+                return;
         }
         private async Task AddUser()
         {
@@ -93,12 +128,7 @@ namespace Land_listing.ViewModels.User
                 {
                     await App.Current.MainPage.DisplayAlert("Error", "Phone number already exist", "Ok");
                     return;
-                }
-                if (!client && !administrator)
-                {                   
-                    await App.Current.MainPage.DisplayAlert("Error", " Please choose your user type", "Ok");
-                    return;
-                }
+                }               
                
                 if (string.IsNullOrEmpty(fullname))
                 {
@@ -171,6 +201,42 @@ namespace Land_listing.ViewModels.User
                 IsBusy = false;
             }
         }
+        public async Task updateUser()
+        {
+            // get all user in the database
+            var allUsers = await dataUser.GetUsersAsync();
+            // check if their is any field having the userId
+            var updatedUser = allUsers.Where(u => u.UserId == UserId).FirstOrDefault();
+            if (updatedUser != null)
+            {
+                fullname = char.ToUpper(fullname[0]) + fullname.Substring(1);
+                // call the password validator               
+                if (PasswordValidator(password))
+                {
+                    // create a new user object
+                    var newUserObject = new Models.User
+                    {
+                        UserId = UserId,
+                        FullName = Fullname,
+                        Password = Password,
+                        Username = Username,
+                        PhoneNumber = phonenumber,
+                        CreatedOn= updatedUser.CreatedOn,
+                        Usertype = updatedUser.Usertype,
+                        Blocked = updatedUser.Blocked,
+                    };
+                    await dataUser.UpdateUserAsync(newUserObject);
+                    // go to this page                
+                    await Shell.Current.Navigation.PushAsync(new ClientLandPage(newUserObject));
+                    Datatoast.toast("User details updated successfully");
+                }
+                else
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", "Make sure your password contains at least one letter, one special character, and one number", "Ok");
+                    return;
+                }
+            }
+        }
         static bool PasswordValidator(string password)
         {
             // Check if the password contains at least one letter, one special character, and one number
@@ -202,27 +268,38 @@ namespace Land_listing.ViewModels.User
                 var dbUser = users.Where(t => t.Username == username).FirstOrDefault();
                 if (dbUser != null)
                 {
-                    //// get the password having the incoming password
-                    //var  dbPassword = users.Where(t => t.Password == password).FirstOrDefault();
-                    // check if the password matches
-                    if (dbUser.Password == password)       
+                    //check if the user is blocked or not
+                    if(dbUser.Blocked)
                     {
-                        if(dbUser.Usertype.Equals("Administrator"))
-                        {
-                            // go to this page                
-                            await Shell.Current.Navigation.PushAsync(new AdministratorDashboardView(dbUser));
-                        }
-                        else if(dbUser.Usertype.Equals("Client"))
-                        {
-                            // go to this page                
-                            await Shell.Current.Navigation.PushAsync(new ClientLandPage(dbUser));
-                        }                        
+                        await App.Current.MainPage.DisplayAlert("Alert", "Sorry, your account is blocked, you cant login", "Ok");
+                        return;
                     }
                     else 
                     {
-                        await App.Current.MainPage.DisplayAlert("Error", " Password doesnt exist", "Ok");
-                        return;
+                        //// get the password having the incoming password
+                        //var  dbPassword = users.Where(t => t.Password == password).FirstOrDefault();
+                        // check if the password matches
+                        if (dbUser.Password == password)
+                        {
+                            if (dbUser.Usertype.Equals("Administrator"))
+                            {
+                                // go to this page                
+                                await Shell.Current.Navigation.PushAsync(new AdministratorDashboardView(dbUser));
+                            }
+                            else if (dbUser.Usertype.Equals("Client"))
+                            {
+                                // go to this page                
+                                await Shell.Current.Navigation.PushAsync(new ClientLandPage(dbUser));
+                            }
+                        }
+                        else
+                        {
+                            await App.Current.MainPage.DisplayAlert("Error", " Password doesnt exist", "Ok");
+                            return;
+                        }
+
                     }
+                   
                 }
                 else 
                 {

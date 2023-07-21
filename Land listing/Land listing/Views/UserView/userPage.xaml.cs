@@ -46,7 +46,7 @@ namespace Land_listing.Views.UserView
                 {
                     // call the deleting command
                     await viewModel.UpdateUserCommand.ExecuteAsync(user.UserId);
-                    await App.Current.MainPage.DisplayAlert("Alert", "User deleted successfully", "Ok");
+                   
                 }
             }
             else

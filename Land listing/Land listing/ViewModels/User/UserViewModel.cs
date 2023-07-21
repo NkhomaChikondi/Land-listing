@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Land_listing.Models;
+using System.Linq;
 
 namespace Land_listing.ViewModels.User
 {
@@ -52,8 +53,28 @@ namespace Land_listing.ViewModels.User
 
         private async Task updateUser(int id)
         {
-            await dataUser.DeleteUserAsync(id);
-            await refreshCommand.ExecuteAsync();
+            var result = await App.Current.MainPage.DisplayAlert("Alert","All land viewing request (if any) associated with this account will be deleted","Yes","No");
+            if (result)
+            {
+                // get all userlands
+                var userlands = await dataUserLand.GetUserlandsAsync();
+                // get only those having the same userid as the incoming one
+                var useralandId = userlands.Where(u => u.UserId == id).ToList();
+                if (useralandId.Count > 0)
+                {
+                    // delete all of them
+                    foreach (var item in useralandId)
+                    {
+                        await dataUserLand.DeleteUserlandAsync(item.Id);
+                    }
+                }
+                await dataUser.DeleteUserAsync(id);
+                await refreshCommand.ExecuteAsync();
+                Datatoast.toast("Account deleted successfully");
+            }
+            else
+                return;
+           
         }
 
         private Task deleteUser()

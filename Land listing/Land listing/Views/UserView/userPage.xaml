@@ -24,9 +24,12 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <StackLayout>
-                <StackLayout HorizontalOptions="CenterAndExpand">
-                    <Label Text="Users" Margin="80,0" TextColor="#495057" FontAttributes="Bold" FontSize="18"/>
-                    <Label Text="View and Manage User Accounts" TextColor="#495057" FontAttributes="Italic" FontSize="15.5"/>
+                <StackLayout HorizontalOptions="CenterAndExpand" Margin="0,15">
+                    <StackLayout Orientation="Horizontal">
+                        <Label HorizontalOptions="CenterAndExpand" Text="Users" FontSize="20" TextColor="#22223b" Margin="68,0"  FontAttributes="Bold" />
+                    </StackLayout>
+
+                    <Label Text="View and Manage User Accounts" FontSize="15" TextColor="#70798c" FontAttributes="Bold" />
                 </StackLayout>
                 <StackLayout HorizontalOptions="EndAndExpand" Margin="20,0">
                     <ImageButton Source="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static helpers:IconFont.Sort},Size=26,Color=#495057}" Clicked="ImageButton_Clicked" BackgroundColor="Transparent" />

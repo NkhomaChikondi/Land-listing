@@ -30,12 +30,12 @@
                     <StackLayout Margin="0,10,0,0"   Orientation="Horizontal">
                         <Frame CornerRadius="20" Padding="30,9,30,9" BackgroundColor="#f8f9fa" HorizontalOptions="CenterAndExpand" Margin="0,10">
                             <StackLayout Orientation="Horizontal">
-                                <Frame x:Name="framedash" BackgroundColor="MidnightBlue" CornerRadius="15" Padding="15,9,20,9">
+                                <Frame x:Name="framedash" BorderColor="LightGray" CornerRadius="15" Padding="15,9,20,9">
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer Tapped="DashBoard_Tapped"/>
                                     </Frame.GestureRecognizers>
                                     <StackLayout>
-                                        <Label x:Name="dashlbl" Text="Dashboard" TextColor="White" FontSize="18" FontAttributes="Bold" />
+                                        <Label x:Name="dashlbl" Text="Dashboard"  FontSize="18" FontAttributes="Bold" />
                                     </StackLayout>
                                 </Frame>
                                 <Frame x:Name="framestatus" CornerRadius="15" Padding="15,9,20,9" >
@@ -43,7 +43,7 @@
                                         <TapGestureRecognizer Tapped="Status_Tapped"/>
                                     </Frame.GestureRecognizers>
                                     <StackLayout>
-                                        <Label x:Name="statuslbl" Text="     Status   " TextColor="MidnightBlue" FontSize="17"  FontAttributes="Bold" />
+                                        <Label x:Name="statuslbl" Text="     Status   "  FontSize="17"  FontAttributes="Bold" />
                                     </StackLayout>
                                 </Frame>
                             </StackLayout>                            
@@ -58,16 +58,16 @@
                                 </Frame.GestureRecognizers>
                                 <StackLayout>
                                     <ImageButton HorizontalOptions="CenterAndExpand" Source="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static helpers:IconFont.Account},Size=40,Color=White}" BackgroundColor="Transparent" />
-                                    <Label Text="27" TextColor="WhiteSmoke" FontAttributes="Bold" HorizontalOptions="CenterAndExpand"/>
+                                    <Label x:Name="totaluser" Text="27" TextColor="WhiteSmoke" FontAttributes="Bold" HorizontalOptions="CenterAndExpand"/>
                                     <Label Text="   Total users     " TextColor="White" FontAttributes="Bold" FontSize="15" HorizontalOptions="CenterAndExpand"/>
                                 </StackLayout>
                             </Frame>
                             <Frame  CornerRadius="15" Margin="0,0,10,0" HasShadow="True" BackgroundColor="#7bdff2"  HorizontalOptions="EndAndExpand">
                                 <StackLayout>
                                     <StackLayout>
-                                        <ImageButton HorizontalOptions="CenterAndExpand" Source="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static helpers:IconFont.FrequentlyAskedQuestions},Size=40,Color=White}" BackgroundColor="Transparent" />
-                                        <Label HorizontalOptions="CenterAndExpand" Text="27" TextColor="White" FontAttributes="Bold" FontSize="15"/>
-                                        <Label Margin="5,0" Text="User request" TextColor="White" FontAttributes="Bold" FontSize="15"/>
+                                        <ImageButton HorizontalOptions="CenterAndExpand" Source="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static helpers:IconFont.BlockHelper},Size=40,Color=White}" BackgroundColor="Transparent" />
+                                        <Label x:Name="userblocked" HorizontalOptions="CenterAndExpand" Text="27" TextColor="White" FontAttributes="Bold" FontSize="15"/>
+                                        <Label Margin="5,0" Text="Users Blocked" TextColor="White" FontAttributes="Bold" FontSize="15"/>
                                     </StackLayout>
                                 </StackLayout>
                             </Frame>
@@ -79,16 +79,16 @@
                                 </Frame.GestureRecognizers>
                                 <StackLayout HorizontalOptions="CenterAndExpand">
                                     <ImageButton HorizontalOptions="CenterAndExpand" Source="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static helpers:IconFont.CropLandscape},Size=40,Color=White}" BackgroundColor="Transparent" />
-                                    <Label Text="27" HorizontalOptions="CenterAndExpand" TextColor="White" FontAttributes="Bold" FontSize="15"/>
+                                    <Label x:Name="landsites" Text="27" HorizontalOptions="CenterAndExpand" TextColor="White" FontAttributes="Bold" FontSize="15"/>
                                     <Label Text="Total land sites" TextColor="White" FontAttributes="Bold" FontSize="15"/>
                                 </StackLayout>
                             </Frame>
                             <Frame CornerRadius="15" Margin="5,0,12,0"  HasShadow="True" BackgroundColor="#b1a7a6" HorizontalOptions="EndAndExpand">
                                 <StackLayout>
                                     <StackLayout>
-                                        <ImageButton HorizontalOptions="CenterAndExpand" Source="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static helpers:IconFont.Sale},Size=40,Color=White}" BackgroundColor="Transparent" />
-                                        <Label Text="27" HorizontalOptions="CenterAndExpand" TextColor="White" FontAttributes="Bold" FontSize="15" />
-                                        <Label Text="     Land sold   " TextColor="White" FontAttributes="Bold" FontSize="15"/>
+                                        <ImageButton HorizontalOptions="CenterAndExpand" Source="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static helpers:IconFont.FrequentlyAskedQuestions},Size=40,Color=White}" BackgroundColor="Transparent" />
+                                        <Label x:Name="Viewingrequest" Text="27" HorizontalOptions="CenterAndExpand" TextColor="White" FontAttributes="Bold" FontSize="15" />
+                                        <Label Text=" User requests" TextColor="White" FontAttributes="Bold" FontSize="15"/>
                                     </StackLayout>
                                 </StackLayout>
                             </Frame>

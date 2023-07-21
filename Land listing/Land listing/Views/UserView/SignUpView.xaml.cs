@@ -15,19 +15,7 @@ namespace Land_listing.Views.UserView
 		public SignUpView ()
 		{
 			InitializeComponent ();
-		}
-
-        private void client_CheckedChanged(object sender, CheckedChangedEventArgs e)
-        {
-            if (client.IsChecked)
-                administrator.IsChecked = false;
-        }
-
-        private void administrator_CheckedChanged(object sender, CheckedChangedEventArgs e)
-        {
-            if (administrator.IsChecked)
-                client.IsChecked = false;
-        }
+		}     
 
         private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {

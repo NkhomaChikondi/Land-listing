@@ -17,6 +17,7 @@ namespace Land_listing.Views.LandView
     {
         public IToast Datatoast { get; }
         public IdataLand<Models.Land> dataLand { get; set; }
+        public IdataUserland<Models.User_Land> dataUserLand { get; set; }
         int getLandId;
         User getUser;
         string sitename;
@@ -25,6 +26,7 @@ namespace Land_listing.Views.LandView
             InitializeComponent();
             BindingContext = new LandViewModel();
             dataLand = DependencyService.Get<IdataLand<Models.Land>>();
+            dataUserLand = DependencyService.Get<IdataUserland<User_Land>>();
             Datatoast = DependencyService.Get<IToast>();
             getLandId = id;
             getUser = user;
@@ -41,6 +43,8 @@ namespace Land_listing.Views.LandView
                 viewModel.landId = getLandId;
                 await viewModel.LoadUserLandDataCommand.ExecuteAsync();
             }
+            
+
         }
         private async void Approve_Clicked(object sender, EventArgs e)
         {
@@ -49,10 +53,9 @@ namespace Land_listing.Views.LandView
             var Userland = (userlanddata)button.CommandParameter;
             if (BindingContext is LandViewModel viewModel)
             {
-                await viewModel.AddNotification(sitename, Userland.Id);
+                await viewModel.AddNotification(sitename, Userland.Id,getLandId);
             }
-            Datatoast.toast("Approved notification sent");
-            
+                      
         }
     }
 }

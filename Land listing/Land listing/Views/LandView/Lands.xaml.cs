@@ -1,4 +1,5 @@
 ﻿using Land_listing.Models;
+using Land_listing.Services;
 using Land_listing.ViewModels.Land;
 using Land_listing.ViewModels.User;
 using Land_listing.Views.UserView;
@@ -16,12 +17,15 @@ namespace Land_listing.Views.LandView
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class Lands : ContentPage
 	{
+        public IdataLand<Models.Land> dataLand { get; set; }
         Models.User getUser;
 		public Lands (User user)
 		{
 			InitializeComponent ();
+            dataLand = DependencyService.Get<IdataLand<Models.Land>>();
             BindingContext = new LandViewModel();
-            getUser = user;            
+            getUser = user;          
+            
         }
         public Lands()
         {
@@ -32,7 +36,22 @@ namespace Land_listing.Views.LandView
         protected async override void OnAppearing()
         {
             base.OnAppearing();
-            
+            // get all lands in the database
+            var lands = await dataLand.GetlandsAsync();
+            if(lands.Count() == 0)
+            {
+                stacklist.IsVisible = false;
+                stackname.IsVisible = true;
+                stackheader.IsVisible = false;
+                stackimage.IsVisible = false;
+            }
+            else if(lands.Count() > 0)
+            {
+                stacklist.IsVisible = true;
+                stackname.IsVisible = false;
+                stackheader.IsVisible = true;
+                stackimage.IsVisible = true;
+            }
             if (BindingContext is LandViewModel viewModel)
             {
                 await viewModel.refreshCommand.ExecuteAsync();

@@ -23,11 +23,10 @@
                  Order="Primary"
                  Priority="0"        
         />
-        <ToolbarItem 
+        <ToolbarItem             
                  IconImageSource="{FontImage FontFamily={StaticResource MaterialFontFamily},
                                    Glyph={x:Static helpers:IconFont.BellAlert},Size=30,Color=#a6808c}"
-                Clicked="NotificationAlert_Clicked" 
-            
+                Clicked="NotificationAlert_Clicked"             
                  Order="Primary"
                  Priority="0"        
         />
@@ -41,16 +40,19 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <StackLayout>
+                <StackLayout HorizontalOptions="EndAndExpand"  Margin="20,0">
+                    <Label Text="1" FontSize="12" FontAttributes="Bold" TextColor="Red" Margin="13,5"/>
+                    <ImageButton Margin="0,-15,15,0 " Source ="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static helpers:IconFont.Bell},Size=26,Color=#495057}" BackgroundColor="Transparent" Clicked="ImageButton_Clicked" />
+                </StackLayout>
                 <StackLayout HorizontalOptions="CenterAndExpand" Margin="0,15">
                     <StackLayout Orientation="Horizontal">
-                        <Label HorizontalOptions="CenterAndExpand" Text="Land" FontSize="20" TextColor="#22223b" Margin="68,0"  FontAttributes="Bold" />
+                        <Label HorizontalOptions="CenterAndExpand" Text="Land Sites" FontSize="20" TextColor="#22223b" Margin="68,0"  FontAttributes="Bold" />
                      </StackLayout>
-
                     <Label Text="Land sites available for viewing" FontSize="15" TextColor="#70798c" FontAttributes="Bold" />
                 </StackLayout>
                
-                <StackLayout HorizontalOptions="EndAndExpand" Margin="20,0">
-                    <ImageButton Source ="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static helpers:IconFont.Sort},Size=26,Color=#495057}" BackgroundColor="Transparent" Clicked="ImageButton_Clicked" />
+                <StackLayout HorizontalOptions="EndAndExpand"  Margin="20,0">                   
+                    <ImageButton  Source ="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static helpers:IconFont.Sort},Size=26,Color=#495057}" BackgroundColor="Transparent" Clicked="ImageButton_Clicked" />
                 </StackLayout>
                 <StackLayout>
                     <ListView ItemsSource="{Binding Lands}"                     
@@ -88,8 +90,7 @@
                                                         <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand" Margin="0,0,10,0">                                                           
                                                             <StackLayout  Orientation="Vertical" >
                                                                 <ImageButton Source="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static helpers:IconFont.FrequentlyAskedQuestions},Size=36,Color=#343a40}" Clicked="userRequest_Clicked" CommandParameter="{Binding .}" BackgroundColor="Transparent" />
-                                                            </StackLayout>
-                                                           
+                                                            </StackLayout>                                                           
                                                         </StackLayout>
                                                     </StackLayout>
                                                 </StackLayout>

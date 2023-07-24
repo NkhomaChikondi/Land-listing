@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-              xmlns:helpers="clr-namespace:Land_listing.Resources"
-             xmlns:Viewmodel="clr-namespace:Land_listing.ViewModels.Land"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"           
+             xmlns:helpers="clr-namespace:Land_listing.Resources"
+             xmlns:Viewmodel="clr-namespace:Land_listing.ViewModels.Land" 
              x:Class="Land_listing.Views.LandView.Lands"
              Title="Land Listing">
     <ContentPage.BindingContext>
@@ -24,17 +24,17 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <StackLayout>
-                <StackLayout HorizontalOptions="CenterAndExpand" Margin="0,15">
+                <StackLayout x:Name="stackheader" HorizontalOptions="CenterAndExpand" Margin="0,15">
                     <StackLayout Orientation="Horizontal">
-                        <Label HorizontalOptions="CenterAndExpand" Text="Land" FontSize="20" TextColor="#22223b" Margin="68,0"  FontAttributes="Bold" />
+                        <Label HorizontalOptions="CenterAndExpand" Text="Land Sites" FontSize="20" TextColor="#22223b" Margin="68,0"  FontAttributes="Bold" />
                     </StackLayout>
 
                     <Label Text="Land sites available for viewing" FontSize="15" TextColor="#70798c" FontAttributes="Bold" />
                 </StackLayout>
-                <StackLayout HorizontalOptions="EndAndExpand" Margin="20,0">
+                <StackLayout x:Name="stackimage" HorizontalOptions="EndAndExpand" Margin="20,0">                                     
                     <ImageButton Source="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static helpers:IconFont.Sort},Size=26,Color=#495057}" BackgroundColor="Transparent" Clicked="ImageButton_Clicked" />
                 </StackLayout>
-                <StackLayout>
+                <StackLayout x:Name="stacklist">
                     <ListView ItemsSource="{Binding Lands}"                     
                        CachingStrategy="RecycleElement"
                        HasUnevenRows="True" 
@@ -67,6 +67,7 @@
                                                                 </FormattedString>
                                                             </Label.FormattedText>
                                                         </Label>
+                                                       
                                                         <Label Text="{Binding PlotSize}" TextColor="#343a40" Margin="0,5" FontSize="16.5" FontAttributes="Bold"/>
                                                         <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand" Margin="0,0,0,35">
                                                             <StackLayout >
@@ -85,6 +86,10 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
+                </StackLayout>
+                <StackLayout Margin="0,100" x:Name="stackname" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                    <Label Text="No land sites available" HorizontalOptions="CenterAndExpand" FontSize="17" TextColor="#70798c" FontAttributes="Bold"/>
+                    <Label Text="tap on add site button to add" HorizontalOptions="Center" FontSize="17" TextColor="#70798c" FontAttributes="Italic"/>
                 </StackLayout>
                 <StackLayout Margin="70,0,70,0" >
                     <Button CornerRadius="20" Command="{Binding addlandCommand}" Text=" Add Site"/>

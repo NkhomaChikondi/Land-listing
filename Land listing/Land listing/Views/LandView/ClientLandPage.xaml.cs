@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -17,13 +16,15 @@ namespace Land_listing.Views.LandView
     public partial class ClientLandPage : ContentPage
     {
         public IToast Datatoast { get; }
+        public IdataLand<Land> dataLand { get; set; }
         Models.User GetUser;
         public ClientLandPage(User user)
         {
             InitializeComponent();
             BindingContext = new LandViewModel();
             Datatoast= DependencyService.Get<IToast>();
-            GetUser = user;
+            dataLand = DependencyService.Get<IdataLand<Land>>();
+            GetUser = user;          
         }
         protected async override void OnAppearing()
         {
@@ -55,7 +56,6 @@ namespace Land_listing.Views.LandView
             // go to notification page
             await Shell.Current.Navigation.PushAsync(new Notifications(GetUser));
         }
-
         private async void EditProfile_Clicked(object sender, EventArgs e)
         {
             // go to editUser page
@@ -93,6 +93,13 @@ namespace Land_listing.Views.LandView
                 }
             }
         }
-    }
-    
+        private async void ViewuserImage_Tapped(object sender, EventArgs e)
+        {
+            if (sender is Image tappedImage && tappedImage.BindingContext is Land tappedLand)
+            {
+                // Navigate to the LandDetailPage with the tappedLand object as the parameter
+                await Navigation.PushAsync(new viewImage(tappedLand));
+            }
+        }
+    }    
 }

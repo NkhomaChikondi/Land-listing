@@ -22,7 +22,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <StackLayout>
+            <StackLayout x:Name="stacklist">
                 <StackLayout HorizontalOptions="CenterAndExpand">
                     <Label Text="Notifications"  TextColor="#495057" FontAttributes="Bold" FontSize="18"/>
                 </StackLayout>
@@ -68,6 +68,9 @@
                         </ListView>
                     </StackLayout>
                 </StackLayout>
+            </StackLayout>
+            <StackLayout  Margin="0,100" x:Name="stackempty" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                <Label Text="No notifications available" HorizontalOptions="CenterAndExpand" FontSize="17" TextColor="#70798c" FontAttributes="Bold"/>                
             </StackLayout>
         </Grid>
     </ContentPage.Content>

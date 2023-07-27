@@ -1,4 +1,5 @@
 ﻿using Land_listing.Models;
+using Land_listing.Services;
 using Land_listing.ViewModels.User;
 using System;
 using System.Collections.Generic;
@@ -14,14 +15,29 @@ namespace Land_listing.Views.UserView
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class userPage : ContentPage
 	{
-		public userPage ()
+        public IDataUser<Models.User> dataUser { get; set; }
+        public userPage ()
 		{
 			InitializeComponent ();
             BindingContext = new UserViewModel();
-		}
+            dataUser = DependencyService.Get<IDataUser<Models.User>>();   
+
+        }
         protected async override void OnAppearing()
         {
             base.OnAppearing();
+            // get all users in the system
+            var users = await dataUser.GetUsersAsync ();
+            if(users.Count() == 0)
+            {
+                stackUserlist.IsVisible = false;
+                stackuserEmpty.IsVisible = true;
+            }
+            else
+            {
+                stackUserlist.IsVisible = true;
+                stackuserEmpty.IsVisible = false;
+            }
             if(BindingContext is  UserViewModel viewModel)
             {
                await viewModel.Refresh();
@@ -34,7 +50,6 @@ namespace Land_listing.Views.UserView
             // navigate to details page
             await Shell.Current.Navigation.PushAsync(new userDetails(user));
         }
-
         private async void Deleteuser_Clicked(object sender, EventArgs e)
         {
             ImageButton button = (ImageButton)sender;
@@ -45,14 +60,12 @@ namespace Land_listing.Views.UserView
                 if (BindingContext is UserViewModel viewModel)
                 {
                     // call the deleting command
-                    await viewModel.UpdateUserCommand.ExecuteAsync(user.UserId);
-                   
+                    await viewModel.UpdateUserCommand.ExecuteAsync(user.UserId);                  
                 }
             }
             else
                 return;
         }
-
         private async void BlockUser_Clicked(object sender, EventArgs e)
         {
             ImageButton button = (ImageButton)sender;

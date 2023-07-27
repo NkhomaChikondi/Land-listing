@@ -31,6 +31,7 @@ namespace Land_listing.Views.LandView
         {
             InitializeComponent();
             BindingContext = new LandViewModel();
+            dataLand = DependencyService.Get<IdataLand<Models.Land>>();
             //if (user.Usertype == "Administrator") 
         }
         protected async override void OnAppearing()
@@ -57,7 +58,6 @@ namespace Land_listing.Views.LandView
                 await viewModel.refreshCommand.ExecuteAsync();
             }            
         }
-
         private async void Delete_Clicked(object sender, EventArgs e)
         {
             ImageButton button = (ImageButton)sender;
@@ -73,12 +73,6 @@ namespace Land_listing.Views.LandView
             // navigate to this page
             await Shell.Current.Navigation.PushAsync(new UserlandView(land.LandId,getUser));
         }
-
-        private void sendMoney_Clicked(object sender, EventArgs e)
-        {
-
-        }
-
         private async void ImageButton_Clicked(object sender, EventArgs e)
         {
             var action = await DisplayActionSheet("Sort by:", "Cancel", "", "All", "Location", "Price", "Date Created");
@@ -111,5 +105,14 @@ namespace Land_listing.Views.LandView
                 }
             }
         }
+        private async void ViewImage_Tapped(object sender, EventArgs e)
+        {
+            if (sender is Image tappedImage && tappedImage.BindingContext is Land tappedLand)
+            {
+                // Navigate to the LandDetailPage with the tappedLand object as the parameter
+                await Navigation.PushAsync(new viewImage(tappedLand));
+            }
+        }
+
     }
 }

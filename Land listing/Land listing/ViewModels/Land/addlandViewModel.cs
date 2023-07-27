@@ -15,11 +15,13 @@ namespace Land_listing.ViewModels.Land
     {
         private string name;
         private string location;
+        private string description;
         private string plotsize;
         private double price;
         private int landId;
         private int num1;
         private int num2;
+        private string imagepath;
         
         //commands
         public AsyncCommand AddLandCommand { get; set; }
@@ -35,6 +37,8 @@ namespace Land_listing.ViewModels.Land
         public int LandId1 { get => landId; set => landId = value; }
         public int Num1 { get => num1; set => num1 = value; }
         public int Num2 { get => num2; set => num2 = value; }
+        public string Imagepath { get => imagepath; set => imagepath = value; }
+        public string Description { get => description; set => description = value; }
 
         public addlandViewModel()
         {
@@ -99,6 +103,7 @@ namespace Land_listing.ViewModels.Land
                 return;
             try
             {
+             
                 // make sure land name is not empty
                 if( string.IsNullOrEmpty(name))
                 {
@@ -108,6 +113,11 @@ namespace Land_listing.ViewModels.Land
                 else if (string.IsNullOrEmpty(Location))
                 {
                     await App.Current.MainPage.DisplayAlert("Error", " Please enter land's location", "Ok");
+                    return;
+                }
+                else if (string.IsNullOrEmpty(Description))
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", " Please enter land's description", "Ok");
                     return;
                 }
                 else if (price == 0)
@@ -143,6 +153,8 @@ namespace Land_listing.ViewModels.Land
                     Location = location,
                     PlotSize = plotsize,
                     Price = price,
+                    Description = description,
+                    MyimagePath = imagepath,
                     CreatedOn = DateTime.Now,
                 };
 
@@ -150,16 +162,15 @@ namespace Land_listing.ViewModels.Land
                 await dataLand.AddlandAsync(newLand);
                 // navigate to lands page
                 await Shell.Current.Navigation.PushAsync(new Lands());
+                Datatoast.toast("New landsite added successfully");
             }
             catch (Exception)
             {
-
                 throw;
             }
             finally
             {
                 IsBusy = false;
-
             }
         }
     }

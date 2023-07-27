@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Land_listing.Views.LandView.viewImage"
+             Title="Land Listing">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackLayout>
+                <StackLayout HorizontalOptions="CenterAndExpand">
+                    <Image x:Name="landImage"  HorizontalOptions="StartAndExpand" HeightRequest="300" WidthRequest="400"  VerticalOptions="StartAndExpand" Aspect="AspectFill" />
+                </StackLayout>
+                <StackLayout>
+                    <!-- Description of the image below it -->
+                    <Label  Text="Description of the land site" TextColor="#22223b" FontSize="17" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="Start" />
+                    <Label FontSize="16" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae feugiat nibh. Suspendisse mollis sapien eu purus congue, ut pharetra justo facilisis. Proin et nisi eu nulla tincidunt euismod et eget nisi. Donec sodales, felis id viverra suscipit, erat quam scelerisque massa, eget accumsan tellus metus eu nunc. Fusce dictum orci eu sagittis ultrices. Quisque vel justo sem. Sed in purus sed lacus facilisis bibendum."
+               LineBreakMode="WordWrap"
+               Margin="10, 0, 10, 10"
+               HorizontalOptions="Start"
+               VerticalOptions="Start" />
+                </StackLayout>
+            </StackLayout>           
+           
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -87,8 +87,10 @@ namespace Land_listing.Services
                 LandName = item.LandName,
                 PlotSize = item.PlotSize,               
                 Location = item.Location,
+                Description = item.Description,
                 Price = item.Price,
                 CreatedOn = item.CreatedOn,
+                MyimagePath = item.MyimagePath
             };
             // add to the database
             await db.InsertAsync(land);

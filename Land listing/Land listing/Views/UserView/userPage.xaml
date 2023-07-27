@@ -23,7 +23,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <StackLayout>
+            <StackLayout x:Name="stackUserlist">
                 <StackLayout HorizontalOptions="CenterAndExpand" Margin="0,15">
                     <StackLayout Orientation="Horizontal">
                         <Label HorizontalOptions="CenterAndExpand" Text="Users" FontSize="20" TextColor="#22223b" Margin="68,0"  FontAttributes="Bold" />
@@ -75,7 +75,10 @@
                         </ListView.ItemTemplate>
                     </ListView>
                 </StackLayout>
-            </StackLayout>            
+            </StackLayout>
+            <StackLayout x:Name="stackuserEmpty" Margin="0,120" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                <Label Text="No Users available" HorizontalOptions="CenterAndExpand" FontSize="17" TextColor="#70798c" FontAttributes="Bold"/>
+            </StackLayout>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

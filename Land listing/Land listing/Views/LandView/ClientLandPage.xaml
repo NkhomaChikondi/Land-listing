@@ -20,7 +20,7 @@
                  IconImageSource="{FontImage FontFamily={StaticResource MaterialFontFamily},
                                    Glyph={x:Static helpers:IconFont.AccountEdit},Size=35,Color=#a6808c}"
                 Clicked="EditProfile_Clicked"                   
-                 Order="Primary"
+                 Order="Primary"            
                  Priority="0"        
         />
         <ToolbarItem             
@@ -28,6 +28,8 @@
                                    Glyph={x:Static helpers:IconFont.BellAlert},Size=30,Color=#a6808c}"
                 Clicked="NotificationAlert_Clicked"             
                  Order="Primary"
+            Text="1"
+            
                  Priority="0"        
         />
     </ContentPage.ToolbarItems>
@@ -39,12 +41,8 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <StackLayout>
-                <StackLayout HorizontalOptions="EndAndExpand"  Margin="20,0">
-                    <Label Text="1" FontSize="12" FontAttributes="Bold" TextColor="Red" Margin="13,5"/>
-                    <ImageButton Margin="0,-15,15,0 " Source ="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static helpers:IconFont.Bell},Size=26,Color=#495057}" BackgroundColor="Transparent" Clicked="ImageButton_Clicked" />
-                </StackLayout>
-                <StackLayout HorizontalOptions="CenterAndExpand" Margin="0,15">
+            <StackLayout>               
+                <StackLayout HorizontalOptions="CenterAndExpand">
                     <StackLayout Orientation="Horizontal">
                         <Label HorizontalOptions="CenterAndExpand" Text="Land Sites" FontSize="20" TextColor="#22223b" Margin="68,0"  FontAttributes="Bold" />
                      </StackLayout>
@@ -64,33 +62,48 @@
                        SelectionMode="Single"
                        SeparatorVisibility="Default"
                        IsRefreshing="{Binding IsBusy,Mode=OneWay}">
-
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
-                                    <Grid ColumnSpacing="5" Padding="6" Margin="10,0" Grid.ColumnSpan="4" >
+                                    <Grid ColumnSpacing="5" Padding="3" Margin="10,0" Grid.ColumnSpan="4" >
                                         <StackLayout >
-                                            <Frame CornerRadius="15" HorizontalOptions="FillAndExpand" Padding="5">
-                                                <StackLayout Orientation="Vertical">
-                                                    <StackLayout Orientation="Horizontal">
-                                                        <Label Text=" MWK" TextColor="#f95738" FontAttributes="Bold" FontSize="18"/>
-                                                        <Label Text="{Binding Price}" TextColor="#f95738" FontAttributes="Bold" FontSize="18"/>
+                                            <StackLayout Orientation="Horizontal">
+                                                <ImageButton Margin="0,3" Source="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static helpers:IconFont.LocationEnter},Size=20,Color=#343a40}"  BackgroundColor="Transparent" />
+                                                <Label Margin="0,3" Text="{Binding Location}" TextColor="#343a40" />
+                                            </StackLayout>
+                                            <Frame  CornerRadius="15" HorizontalOptions="FillAndExpand" Padding="0,2,2,3">
+                                                <StackLayout Orientation="Horizontal">
+                                                    <StackLayout>
+                                                        <Frame Margin="10,10" Padding="2" CornerRadius="25">
+                                                            <Image Source="{Binding MyimagePath}" HeightRequest="50" WidthRequest="50" >
+                                                                <Image.GestureRecognizers>
+                                                                    <TapGestureRecognizer Tapped="ViewuserImage_Tapped" CommandParameter="{Binding .}"/>
+                                                                </Image.GestureRecognizers>
+                                                            </Image>
+                                                        </Frame>
                                                     </StackLayout>
-                                                    <StackLayout Orientation="Horizontal" x:Name="deleteLand" >
-                                                        <Label HorizontalOptions="StartAndExpand">
-                                                            <Label.FormattedText>
-                                                                <FormattedString>
-                                                                    <Span Text="{Binding LandName}" TextColor="#343a40" FontAttributes="Bold" FontSize="17"/>
-                                                                    <Span Text="{x:Static x:Environment.NewLine}" />
-                                                                    <Span Text="{Binding Location}" FontSize="15"/>
-                                                                </FormattedString>
-                                                            </Label.FormattedText>
-                                                        </Label>
-                                                        <Label Text="{Binding PlotSize}" TextColor="#343a40" Margin="0,5" FontSize="15" FontAttributes="Bold"/>
-                                                        <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand" Margin="0,0,10,0">                                                           
-                                                            <StackLayout  Orientation="Vertical" >
-                                                                <ImageButton Source="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static helpers:IconFont.FrequentlyAskedQuestions},Size=36,Color=#343a40}" Clicked="userRequest_Clicked" CommandParameter="{Binding .}" BackgroundColor="Transparent" />
-                                                            </StackLayout>                                                           
+                                                    <StackLayout>
+                                                        <StackLayout Orientation="Horizontal" x:Name="deleteLand">
+                                                            <Label HorizontalOptions="StartAndExpand" Margin="5,10">
+                                                                <Label.FormattedText>
+                                                                    <FormattedString>
+                                                                        <Span Text="MWK" TextColor="#f95738" FontAttributes="Bold" FontSize="17.5"/>
+                                                                        <Span Text="{Binding Price}" TextColor="#f95738" FontAttributes="Bold" FontSize="16"/>
+                                                                        <Span Text="{x:Static x:Environment.NewLine}" />
+                                                                        <Span Text="{Binding LandName}" TextColor="#343a40" FontAttributes="Bold" FontSize="15.5"/>
+                                                                        <Span Text=" site      " TextColor="#343a40" FontAttributes="Bold" FontSize="15.5"/>
+                                                                        <Span Text="{Binding PlotSize}" TextColor="#343a40" FontSize="15"/>
+                                                                        <Span Text="      " TextColor="#343a40" FontAttributes="Bold" FontSize="15"/>
+                                                                    </FormattedString>
+                                                                </Label.FormattedText>
+                                                            </Label>
+
+                                                            <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand" Margin="0,27">
+                                                                <StackLayout  Orientation="Vertical" >
+                                                                    
+                                                                    <ImageButton Source="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static helpers:IconFont.FrequentlyAskedQuestions},Size=30,Color=#343a40}" Clicked="userRequest_Clicked" CommandParameter="{Binding .}" BackgroundColor="Transparent" />
+                                                                </StackLayout>
+                                                            </StackLayout>
                                                         </StackLayout>
                                                     </StackLayout>
                                                 </StackLayout>
@@ -104,6 +117,7 @@
                 </StackLayout>
                 
             </StackLayout>
+           
         </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -15,9 +15,9 @@ namespace Land_listing
             Routing.RegisterRoute(nameof(userPage), typeof(userPage));
         }
 
-        //private async void OnMenuItemClicked(object sender, EventArgs e)
-        //{
-        //    await Shell.Current.GoToAsync("//LoginPage");
-        //}
+        private async void OnMenuItemClicked(object sender, EventArgs e)
+        {
+            await Shell.Current.Navigation.PushAsync(new SignInuser());
+        }
     }
 }
